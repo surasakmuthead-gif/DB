@@ -1,0 +1,2749 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.gitignore
+eslint.config.js
+index.html
+package.json
+public/data/history-log.json
+public/data/kpi-config.json
+public/favicon.svg
+public/icons.svg
+README.md
+src/App.jsx
+src/components/Navbar.jsx
+src/components/ThemeSwitcher.jsx
+src/data/sampleData.js
+src/data/transformer.js
+src/features/admin-config/AdminPinGate.jsx
+src/features/admin-config/AdminSettings.jsx
+src/features/branch-detail/BranchOverview.jsx
+src/features/kpi-dashboard/HistoryChart.jsx
+src/features/kpi-dashboard/KpiCard.jsx
+src/features/kpi-dashboard/KpiCardLarge.jsx
+src/features/kpi-dashboard/KpiDetailSection.jsx
+src/features/kpi-dashboard/ProvinceOverview.jsx
+src/features/kpi-dashboard/RankingTable.jsx
+src/hooks/useTheme.js
+src/index.css
+src/main.jsx
+src/routes.jsx
+vite.config.js
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".gitignore">
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+</file>
+
+<file path="eslint.config.js">
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import { defineConfig, globalIgnores } from 'eslint/config'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{js,jsx}'],
+    extends: [
+      js.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+  },
+])
+</file>
+
+<file path="index.html">
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BAAC KPI Dashboard - สนจ.สุโขทัย</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+</file>
+
+<file path="package.json">
+{
+  "name": "baac-kpi-dashboard",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "^1.17.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router-dom": "^7.17.0",
+    "recharts": "^3.8.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "tailwindcss": "^4.3.0",
+    "vite": "^8.0.12"
+  }
+}
+</file>
+
+<file path="public/data/history-log.json">
+[]
+</file>
+
+<file path="public/data/kpi-config.json">
+[
+  {
+    "kpi_id": "kpi_01",
+    "kpi_name": "ขึ้นทะเบียนลูกค้าเกษตรกรรายใหม่",
+    "unit": "ราย",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "ลูกค้า",
+    "display_size": "small",
+    "thresholds": { "score_1": 81, "score_2": 86, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_02",
+    "kpi_name": "สินเชื่อเงินกู้ระยะสั้น",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_03",
+    "kpi_name": "สินเชื่อเงินกู้ระยะปานกลาง",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_04",
+    "kpi_name": "สินเชื่อเงินกู้ระยะยาว",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_05",
+    "kpi_name": "เงินรับฝาก",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "เงินฝาก",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_06",
+    "kpi_name": "BAAC Mobile",
+    "unit": "ราย",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "ดิจิทัล",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_07",
+    "kpi_name": "อัตรารับชำระหนี้",
+    "unit": "%",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "หนี้สิน",
+    "display_size": "large",
+    "thresholds": { "score_1": 90, "score_2": 93, "score_3": 95, "score_4": 97, "score_5": 98.5 }
+  },
+  {
+    "kpi_id": "kpi_08",
+    "kpi_name": "NPL (หนี้ไม่ก่อให้เกิดรายได้)",
+    "unit": "%",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "หนี้สิน",
+    "display_size": "large",
+    "thresholds": { "score_1": 15, "score_2": 12, "score_3": 10, "score_4": 8, "score_5": 5 }
+  },
+  {
+    "kpi_id": "kpi_09",
+    "kpi_name": "สินเชื่อ SML",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_10",
+    "kpi_name": "ประกันภัยพืชผล",
+    "unit": "ราย",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "ลูกค้า",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_11",
+    "kpi_name": "บัตรเดบิต",
+    "unit": "ราย",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "ดิจิทัล",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_12",
+    "kpi_name": "สินเชื่อรายบุคคล",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_13",
+    "kpi_name": "ธุรกรรม ATM/CDM",
+    "unit": "ราย",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "ดิจิทัล",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_14",
+    "kpi_name": "สินเชื่อนโยบายรัฐ",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_15",
+    "kpi_name": "เงินรับฝากออมทรัพย์ทวีโชค",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "เงินฝาก",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_16",
+    "kpi_name": "สินเชื่อ A-Cash Card",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  }
+]
+</file>
+
+<file path="public/favicon.svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="6" fill="#004D25"/>
+  <text x="16" y="21" text-anchor="middle" fill="#F0FDF4" font-size="11" font-weight="700" font-family="sans-serif">KPI</text>
+</svg>
+</file>
+
+<file path="public/icons.svg">
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="bluesky-icon" viewBox="0 0 16 17">
+    <g clip-path="url(#bluesky-clip)"><path fill="#08060d" d="M7.75 7.735c-.693-1.348-2.58-3.86-4.334-5.097-1.68-1.187-2.32-.981-2.74-.79C.188 2.065.1 2.812.1 3.251s.241 3.602.398 4.13c.52 1.744 2.367 2.333 4.07 2.145-2.495.37-4.71 1.278-1.805 4.512 3.196 3.309 4.38-.71 4.987-2.746.608 2.036 1.307 5.91 4.93 2.746 2.72-2.746.747-4.143-1.747-4.512 1.702.189 3.55-.4 4.07-2.145.156-.528.397-3.691.397-4.13s-.088-1.186-.575-1.406c-.42-.19-1.06-.395-2.741.79-1.755 1.24-3.64 3.752-4.334 5.099"/></g>
+    <defs><clipPath id="bluesky-clip"><path fill="#fff" d="M.1.85h15.3v15.3H.1z"/></clipPath></defs>
+  </symbol>
+  <symbol id="discord-icon" viewBox="0 0 20 19">
+    <path fill="#08060d" d="M16.224 3.768a14.5 14.5 0 0 0-3.67-1.153c-.158.286-.343.67-.47.976a13.5 13.5 0 0 0-4.067 0c-.128-.306-.317-.69-.476-.976A14.4 14.4 0 0 0 3.868 3.77C1.546 7.28.916 10.703 1.231 14.077a14.7 14.7 0 0 0 4.5 2.306q.545-.748.965-1.587a9.5 9.5 0 0 1-1.518-.74q.191-.14.372-.293c2.927 1.369 6.107 1.369 8.999 0q.183.152.372.294-.723.437-1.52.74.418.838.963 1.588a14.6 14.6 0 0 0 4.504-2.308c.37-3.911-.63-7.302-2.644-10.309m-9.13 8.234c-.878 0-1.599-.82-1.599-1.82 0-.998.705-1.82 1.6-1.82.894 0 1.614.82 1.599 1.82.001 1-.705 1.82-1.6 1.82m5.91 0c-.878 0-1.599-.82-1.599-1.82 0-.998.705-1.82 1.6-1.82.893 0 1.614.82 1.599 1.82 0 1-.706 1.82-1.6 1.82"/>
+  </symbol>
+  <symbol id="documentation-icon" viewBox="0 0 21 20">
+    <path fill="none" stroke="#aa3bff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.35" d="m15.5 13.333 1.533 1.322c.645.555.967.833.967 1.178s-.322.623-.967 1.179L15.5 18.333m-3.333-5-1.534 1.322c-.644.555-.966.833-.966 1.178s.322.623.966 1.179l1.534 1.321"/>
+    <path fill="none" stroke="#aa3bff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.35" d="M17.167 10.836v-4.32c0-1.41 0-2.117-.224-2.68-.359-.906-1.118-1.621-2.08-1.96-.599-.21-1.349-.21-2.848-.21-2.623 0-3.935 0-4.983.369-1.684.591-3.013 1.842-3.641 3.428C3 6.449 3 7.684 3 10.154v2.122c0 2.558 0 3.838.706 4.726q.306.383.713.671c.76.536 1.79.64 3.581.66"/>
+    <path fill="none" stroke="#aa3bff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.35" d="M3 10a2.78 2.78 0 0 1 2.778-2.778c.555 0 1.209.097 1.748-.047.48-.129.854-.503.982-.982.145-.54.048-1.194.048-1.749a2.78 2.78 0 0 1 2.777-2.777"/>
+  </symbol>
+  <symbol id="github-icon" viewBox="0 0 19 19">
+    <path fill="#08060d" fill-rule="evenodd" d="M9.356 1.85C5.05 1.85 1.57 5.356 1.57 9.694a7.84 7.84 0 0 0 5.324 7.44c.387.079.528-.168.528-.376 0-.182-.013-.805-.013-1.454-2.165.467-2.616-.935-2.616-.935-.349-.91-.864-1.143-.864-1.143-.71-.48.051-.48.051-.48.787.051 1.2.805 1.2.805.695 1.194 1.817.857 2.268.649.064-.507.27-.857.49-1.052-1.728-.182-3.545-.857-3.545-3.87 0-.857.31-1.558.8-2.104-.078-.195-.349-1 .077-2.078 0 0 .657-.208 2.14.805a7.5 7.5 0 0 1 1.946-.26c.657 0 1.328.092 1.946.26 1.483-1.013 2.14-.805 2.14-.805.426 1.078.155 1.883.078 2.078.502.546.799 1.247.799 2.104 0 3.013-1.818 3.675-3.558 3.87.284.247.528.714.528 1.454 0 1.052-.012 1.896-.012 2.156 0 .208.142.455.528.377a7.84 7.84 0 0 0 5.324-7.441c.013-4.338-3.48-7.844-7.773-7.844" clip-rule="evenodd"/>
+  </symbol>
+  <symbol id="social-icon" viewBox="0 0 20 20">
+    <path fill="none" stroke="#aa3bff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.35" d="M12.5 6.667a4.167 4.167 0 1 0-8.334 0 4.167 4.167 0 0 0 8.334 0"/>
+    <path fill="none" stroke="#aa3bff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.35" d="M2.5 16.667a5.833 5.833 0 0 1 8.75-5.053m3.837.474.513 1.035c.07.144.257.282.414.309l.93.155c.596.1.736.536.307.965l-.723.73a.64.64 0 0 0-.152.531l.207.903c.164.715-.213.991-.84.618l-.872-.52a.63.63 0 0 0-.577 0l-.872.52c-.624.373-1.003.094-.84-.618l.207-.903a.64.64 0 0 0-.152-.532l-.723-.729c-.426-.43-.289-.864.306-.964l.93-.156a.64.64 0 0 0 .412-.31l.513-1.034c.28-.562.735-.562 1.012 0"/>
+  </symbol>
+  <symbol id="x-icon" viewBox="0 0 19 19">
+    <path fill="#08060d" fill-rule="evenodd" d="M1.893 1.98c.052.072 1.245 1.769 2.653 3.77l2.892 4.114c.183.261.333.48.333.486s-.068.089-.152.183l-.522.593-.765.867-3.597 4.087c-.375.426-.734.834-.798.905a1 1 0 0 0-.118.148c0 .01.236.017.664.017h.663l.729-.83c.4-.457.796-.906.879-.999a692 692 0 0 0 1.794-2.038c.034-.037.301-.34.594-.675l.551-.624.345-.392a7 7 0 0 1 .34-.374c.006 0 .93 1.306 2.052 2.903l2.084 2.965.045.063h2.275c1.87 0 2.273-.003 2.266-.021-.008-.02-1.098-1.572-3.894-5.547-2.013-2.862-2.28-3.246-2.273-3.266.008-.019.282-.332 2.085-2.38l2-2.274 1.567-1.782c.022-.028-.016-.03-.65-.03h-.674l-.3.342a871 871 0 0 1-1.782 2.025c-.067.075-.405.458-.75.852a100 100 0 0 1-.803.91c-.148.172-.299.344-.99 1.127-.304.343-.32.358-.345.327-.015-.019-.904-1.282-1.976-2.808L6.365 1.85H1.8zm1.782.91 8.078 11.294c.772 1.08 1.413 1.973 1.425 1.984.016.017.241.02 1.05.017l1.03-.004-2.694-3.766L7.796 5.75 5.722 2.852l-1.039-.004-1.039-.004z" clip-rule="evenodd"/>
+  </symbol>
+</svg>
+</file>
+
+<file path="README.md">
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+</file>
+
+<file path="src/App.jsx">
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useTheme } from './hooks/useTheme'
+import Navbar from './components/Navbar'
+import routes from './routes'
+
+export default function App() {
+  const { theme, cycleTheme } = useTheme()
+
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen" style={{ backgroundColor: 'var(--c-bg)' }}>
+        <Navbar theme={theme} cycleTheme={cycleTheme} />
+        <main className="max-w-7xl mx-auto px-4 py-6">
+          <Routes>
+            {routes.map((r) => (
+              <Route key={r.path} path={r.path} element={r.element} />
+            ))}
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
+  )
+}
+</file>
+
+<file path="src/components/Navbar.jsx">
+import { NavLink } from 'react-router-dom'
+import ThemeSwitcher from './ThemeSwitcher'
+import routes from '../routes'
+
+export default function Navbar({ theme, cycleTheme }) {
+  return (
+    <nav
+      className="sticky top-0 z-40 border-b backdrop-blur-md"
+      style={{
+        backgroundColor: 'color-mix(in srgb, var(--c-surface) 85%, transparent)',
+        borderColor: 'var(--c-border)',
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-14">
+        {/* Logo + Title */}
+        <div className="flex items-center gap-3">
+          <div
+            className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs text-white"
+            style={{ backgroundColor: '#004D25' }}
+          >
+            ธกส
+          </div>
+          <div className="hidden sm:block">
+            <h1 className="text-sm font-bold leading-tight" style={{ color: 'var(--c-text-1)' }}>
+              KPI Dashboard
+            </h1>
+            <p className="text-xs" style={{ color: 'var(--c-text-2)' }}>
+              สนจ.สุโขทัย
+            </p>
+          </div>
+        </div>
+
+        {/* Navigation Links */}
+        <div className="flex items-center gap-1">
+          {routes.map((route) => {
+            const Icon = route.icon
+            return (
+              <NavLink
+                key={route.path}
+                to={route.path}
+                className={({ isActive }) =>
+                  `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                    isActive ? 'nav-active' : ''
+                  }`
+                }
+                style={({ isActive }) => ({
+                  backgroundColor: isActive ? 'var(--c-accent)' : 'transparent',
+                  color: isActive ? '#fff' : 'var(--c-text-2)',
+                })}
+              >
+                <Icon size={14} />
+                <span className="hidden sm:inline">{route.label}</span>
+              </NavLink>
+            )
+          })}
+        </div>
+
+        {/* Theme Switcher */}
+        <ThemeSwitcher theme={theme} cycleTheme={cycleTheme} />
+      </div>
+    </nav>
+  )
+}
+</file>
+
+<file path="src/components/ThemeSwitcher.jsx">
+import { Moon, Sun, Palette } from 'lucide-react'
+
+const icons = {
+  dark: Moon,
+  light: Sun,
+  colorful: Palette,
+}
+
+const labels = {
+  dark: 'มืด',
+  light: 'สว่าง',
+  colorful: 'สี ธกส.',
+}
+
+export default function ThemeSwitcher({ theme, cycleTheme }) {
+  const Icon = icons[theme]
+
+  return (
+    <button
+      onClick={cycleTheme}
+      className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all"
+      style={{
+        backgroundColor: 'var(--c-surface-alt)',
+        border: '1px solid var(--c-border)',
+        color: 'var(--c-text-2)',
+      }}
+      title={`ธีม: ${labels[theme]}`}
+    >
+      <Icon size={16} />
+      <span className="text-xs font-medium hidden sm:inline">{labels[theme]}</span>
+    </button>
+  )
+}
+</file>
+
+<file path="src/data/sampleData.js">
+export const BRANCHES = [
+  'สาขาสุโขทัย',
+  'สาขาสวรรคโลก',
+  'สาขากงไกรลาศ',
+  'สาขาศรีสำโรง',
+  'สาขาศรีสัชนาลัย',
+  'สาขาทุ่งเสลี่ยม',
+  'สาขาศรีนคร',
+  'สาขาคีรีมาศ',
+  'สาขาบ้านด่านลานหอย',
+  'สาขาบ้านไร่',
+  'สาขาท่าชัย',
+  'สาขาบ้านกล้วย',
+  'สาขาโกรกกลาง',
+  'สาขาแม่สิน',
+]
+
+export const SAMPLE_BRANCH_DATA = [
+  { branch_name: 'สาขาสุโขทัย', kpis: { kpi_01: { target: 162, actual: 171 }, kpi_02: { target: 45, actual: 42 }, kpi_03: { target: 30, actual: 28 }, kpi_04: { target: 20, actual: 18 }, kpi_05: { target: 850, actual: 920 }, kpi_06: { target: 500, actual: 530 }, kpi_07: { target: 98.5, actual: 99.48 }, kpi_08: { target: 5, actual: 4.2 }, kpi_09: { target: 15, actual: 14 }, kpi_10: { target: 200, actual: 185 }, kpi_11: { target: 300, actual: 310 }, kpi_12: { target: 25, actual: 22 }, kpi_13: { target: 1000, actual: 1100 }, kpi_14: { target: 50, actual: 48 }, kpi_15: { target: 100, actual: 95 }, kpi_16: { target: 80, actual: 75 } } },
+  { branch_name: 'สาขาสวรรคโลก', kpis: { kpi_01: { target: 263, actual: 289 }, kpi_02: { target: 60, actual: 58 }, kpi_03: { target: 40, actual: 43 }, kpi_04: { target: 25, actual: 27 }, kpi_05: { target: 1200, actual: 1150 }, kpi_06: { target: 700, actual: 680 }, kpi_07: { target: 98.5, actual: 99.64 }, kpi_08: { target: 5, actual: 3.8 }, kpi_09: { target: 20, actual: 22 }, kpi_10: { target: 350, actual: 340 }, kpi_11: { target: 450, actual: 470 }, kpi_12: { target: 35, actual: 33 }, kpi_13: { target: 1500, actual: 1480 }, kpi_14: { target: 70, actual: 72 }, kpi_15: { target: 150, actual: 155 }, kpi_16: { target: 120, actual: 115 } } },
+  { branch_name: 'สาขากงไกรลาศ', kpis: { kpi_01: { target: 101, actual: 125 }, kpi_02: { target: 30, actual: 35 }, kpi_03: { target: 20, actual: 22 }, kpi_04: { target: 12, actual: 14 }, kpi_05: { target: 500, actual: 520 }, kpi_06: { target: 350, actual: 380 }, kpi_07: { target: 98.5, actual: 98.60 }, kpi_08: { target: 5, actual: 4.5 }, kpi_09: { target: 10, actual: 11 }, kpi_10: { target: 120, actual: 130 }, kpi_11: { target: 200, actual: 220 }, kpi_12: { target: 15, actual: 16 }, kpi_13: { target: 800, actual: 850 }, kpi_14: { target: 35, actual: 38 }, kpi_15: { target: 80, actual: 82 }, kpi_16: { target: 60, actual: 65 } } },
+  { branch_name: 'สาขาศรีสำโรง', kpis: { kpi_01: { target: 182, actual: 214 }, kpi_02: { target: 50, actual: 52 }, kpi_03: { target: 35, actual: 33 }, kpi_04: { target: 18, actual: 20 }, kpi_05: { target: 900, actual: 880 }, kpi_06: { target: 600, actual: 620 }, kpi_07: { target: 98.5, actual: 99.85 }, kpi_08: { target: 5, actual: 3.5 }, kpi_09: { target: 18, actual: 17 }, kpi_10: { target: 280, actual: 290 }, kpi_11: { target: 400, actual: 410 }, kpi_12: { target: 30, actual: 32 }, kpi_13: { target: 1200, actual: 1250 }, kpi_14: { target: 60, actual: 58 }, kpi_15: { target: 120, actual: 125 }, kpi_16: { target: 100, actual: 98 } } },
+  { branch_name: 'สาขาศรีสัชนาลัย', kpis: { kpi_01: { target: 121, actual: 134 }, kpi_02: { target: 35, actual: 32 }, kpi_03: { target: 22, actual: 20 }, kpi_04: { target: 14, actual: 13 }, kpi_05: { target: 600, actual: 580 }, kpi_06: { target: 400, actual: 390 }, kpi_07: { target: 98.5, actual: 99.66 }, kpi_08: { target: 5, actual: 5.2 }, kpi_09: { target: 12, actual: 11 }, kpi_10: { target: 150, actual: 145 }, kpi_11: { target: 250, actual: 240 }, kpi_12: { target: 18, actual: 17 }, kpi_13: { target: 900, actual: 880 }, kpi_14: { target: 40, actual: 38 }, kpi_15: { target: 90, actual: 85 }, kpi_16: { target: 70, actual: 68 } } },
+  { branch_name: 'สาขาทุ่งเสลี่ยม', kpis: { kpi_01: { target: 121, actual: 143 }, kpi_02: { target: 32, actual: 30 }, kpi_03: { target: 18, actual: 19 }, kpi_04: { target: 10, actual: 11 }, kpi_05: { target: 550, actual: 560 }, kpi_06: { target: 380, actual: 400 }, kpi_07: { target: 98.5, actual: 93.15 }, kpi_08: { target: 5, actual: 6.1 }, kpi_09: { target: 11, actual: 12 }, kpi_10: { target: 140, actual: 155 }, kpi_11: { target: 220, actual: 230 }, kpi_12: { target: 16, actual: 15 }, kpi_13: { target: 850, actual: 870 }, kpi_14: { target: 38, actual: 40 }, kpi_15: { target: 85, actual: 88 }, kpi_16: { target: 65, actual: 60 } } },
+  { branch_name: 'สาขาศรีนคร', kpis: { kpi_01: { target: 222, actual: 310 }, kpi_02: { target: 55, actual: 60 }, kpi_03: { target: 38, actual: 42 }, kpi_04: { target: 22, actual: 25 }, kpi_05: { target: 1100, actual: 1200 }, kpi_06: { target: 650, actual: 700 }, kpi_07: { target: 98.5, actual: 99.66 }, kpi_08: { target: 5, actual: 3.2 }, kpi_09: { target: 19, actual: 21 }, kpi_10: { target: 320, actual: 350 }, kpi_11: { target: 420, actual: 450 }, kpi_12: { target: 32, actual: 35 }, kpi_13: { target: 1400, actual: 1500 }, kpi_14: { target: 65, actual: 70 }, kpi_15: { target: 140, actual: 150 }, kpi_16: { target: 110, actual: 118 } } },
+  { branch_name: 'สาขาคีรีมาศ', kpis: { kpi_01: { target: 81, actual: 85 }, kpi_02: { target: 22, actual: 20 }, kpi_03: { target: 15, actual: 14 }, kpi_04: { target: 8, actual: 7 }, kpi_05: { target: 380, actual: 370 }, kpi_06: { target: 250, actual: 240 }, kpi_07: { target: 98.5, actual: 99.73 }, kpi_08: { target: 5, actual: 4.8 }, kpi_09: { target: 8, actual: 7 }, kpi_10: { target: 90, actual: 85 }, kpi_11: { target: 150, actual: 145 }, kpi_12: { target: 10, actual: 9 }, kpi_13: { target: 600, actual: 580 }, kpi_14: { target: 25, actual: 23 }, kpi_15: { target: 60, actual: 55 }, kpi_16: { target: 45, actual: 42 } } },
+  { branch_name: 'สาขาบ้านด่านลานหอย', kpis: { kpi_01: { target: 162, actual: 170 }, kpi_02: { target: 42, actual: 40 }, kpi_03: { target: 28, actual: 30 }, kpi_04: { target: 16, actual: 17 }, kpi_05: { target: 750, actual: 760 }, kpi_06: { target: 480, actual: 500 }, kpi_07: { target: 98.5, actual: 99.62 }, kpi_08: { target: 5, actual: 4.0 }, kpi_09: { target: 14, actual: 15 }, kpi_10: { target: 180, actual: 190 }, kpi_11: { target: 280, actual: 290 }, kpi_12: { target: 22, actual: 24 }, kpi_13: { target: 950, actual: 980 }, kpi_14: { target: 45, actual: 47 }, kpi_15: { target: 95, actual: 100 }, kpi_16: { target: 75, actual: 78 } } },
+  { branch_name: 'สาขาบ้านไร่', kpis: { kpi_01: { target: 101, actual: 113 }, kpi_02: { target: 28, actual: 30 }, kpi_03: { target: 18, actual: 17 }, kpi_04: { target: 10, actual: 9 }, kpi_05: { target: 480, actual: 470 }, kpi_06: { target: 320, actual: 340 }, kpi_07: { target: 98.5, actual: 90.79 }, kpi_08: { target: 5, actual: 5.5 }, kpi_09: { target: 9, actual: 10 }, kpi_10: { target: 110, actual: 115 }, kpi_11: { target: 180, actual: 190 }, kpi_12: { target: 14, actual: 13 }, kpi_13: { target: 700, actual: 720 }, kpi_14: { target: 32, actual: 30 }, kpi_15: { target: 70, actual: 72 }, kpi_16: { target: 55, actual: 58 } } },
+  { branch_name: 'สาขาท่าชัย', kpis: { kpi_01: { target: 101, actual: 116 }, kpi_02: { target: 30, actual: 28 }, kpi_03: { target: 20, actual: 21 }, kpi_04: { target: 11, actual: 12 }, kpi_05: { target: 520, actual: 510 }, kpi_06: { target: 360, actual: 370 }, kpi_07: { target: 98.5, actual: 99.66 }, kpi_08: { target: 5, actual: 4.1 }, kpi_09: { target: 10, actual: 10 }, kpi_10: { target: 130, actual: 125 }, kpi_11: { target: 210, actual: 215 }, kpi_12: { target: 16, actual: 17 }, kpi_13: { target: 820, actual: 840 }, kpi_14: { target: 36, actual: 35 }, kpi_15: { target: 82, actual: 80 }, kpi_16: { target: 62, actual: 64 } } },
+  { branch_name: 'สาขาบ้านกล้วย', kpis: { kpi_01: { target: 101, actual: 115 }, kpi_02: { target: 25, actual: 23 }, kpi_03: { target: 16, actual: 15 }, kpi_04: { target: 9, actual: 8 }, kpi_05: { target: 450, actual: 440 }, kpi_06: { target: 300, actual: 310 }, kpi_07: { target: 98.5, actual: 92.78 }, kpi_08: { target: 5, actual: 5.8 }, kpi_09: { target: 8, actual: 9 }, kpi_10: { target: 100, actual: 95 }, kpi_11: { target: 170, actual: 175 }, kpi_12: { target: 12, actual: 11 }, kpi_13: { target: 650, actual: 660 }, kpi_14: { target: 28, actual: 27 }, kpi_15: { target: 68, actual: 65 }, kpi_16: { target: 50, actual: 48 } } },
+  { branch_name: 'สาขาโกรกกลาง', kpis: { kpi_01: { target: 101, actual: 109 }, kpi_02: { target: 26, actual: 24 }, kpi_03: { target: 17, actual: 16 }, kpi_04: { target: 9, actual: 10 }, kpi_05: { target: 470, actual: 455 }, kpi_06: { target: 310, actual: 300 }, kpi_07: { target: 98.5, actual: 99.48 }, kpi_08: { target: 5, actual: 4.9 }, kpi_09: { target: 9, actual: 8 }, kpi_10: { target: 105, actual: 100 }, kpi_11: { target: 175, actual: 168 }, kpi_12: { target: 13, actual: 12 }, kpi_13: { target: 680, actual: 670 }, kpi_14: { target: 30, actual: 29 }, kpi_15: { target: 72, actual: 70 }, kpi_16: { target: 52, actual: 50 } } },
+  { branch_name: 'สาขาแม่สิน', kpis: { kpi_01: { target: 61, actual: 75 }, kpi_02: { target: 18, actual: 16 }, kpi_03: { target: 12, actual: 11 }, kpi_04: { target: 6, actual: 5 }, kpi_05: { target: 300, actual: 280 }, kpi_06: { target: 200, actual: 190 }, kpi_07: { target: 98.5, actual: 99.66 }, kpi_08: { target: 5, actual: 6.5 }, kpi_09: { target: 6, actual: 5 }, kpi_10: { target: 70, actual: 65 }, kpi_11: { target: 120, actual: 110 }, kpi_12: { target: 8, actual: 7 }, kpi_13: { target: 500, actual: 480 }, kpi_14: { target: 20, actual: 18 }, kpi_15: { target: 50, actual: 45 }, kpi_16: { target: 38, actual: 35 } } },
+]
+
+export const SAMPLE_HISTORY = [
+  { period: '2568-10', label: 'ต.ค. 2568', data: null },
+  { period: '2568-11', label: 'พ.ย. 2568', data: null },
+  { period: '2568-12', label: 'ธ.ค. 2568', data: null },
+  { period: '2569-01', label: 'ม.ค. 2569', data: null },
+  { period: '2569-02', label: 'ก.พ. 2569', data: null },
+  { period: '2569-03', label: 'มี.ค. 2569', data: null },
+]
+</file>
+
+<file path="src/data/transformer.js">
+import * as XLSX from 'xlsx'
+
+const STORAGE_KEYS = {
+  KPI_CONFIG: 'baac-kpi-config',
+  BRANCH_DATA: 'baac-branch-data',
+  HISTORY_LOG: 'baac-history-log',
+}
+
+// ─── KPI Config Storage ───
+
+export function loadKpiConfig() {
+  const saved = localStorage.getItem(STORAGE_KEYS.KPI_CONFIG)
+  return saved ? JSON.parse(saved) : null
+}
+
+export function saveKpiConfig(config) {
+  localStorage.setItem(STORAGE_KEYS.KPI_CONFIG, JSON.stringify(config))
+}
+
+export async function loadDefaultKpiConfig() {
+  const res = await fetch('/data/kpi-config.json')
+  const config = await res.json()
+  saveKpiConfig(config)
+  return config
+}
+
+// ─── Branch Data Storage ───
+
+export function loadBranchData() {
+  const saved = localStorage.getItem(STORAGE_KEYS.BRANCH_DATA)
+  return saved ? JSON.parse(saved) : null
+}
+
+export function saveBranchData(data) {
+  localStorage.setItem(STORAGE_KEYS.BRANCH_DATA, JSON.stringify(data))
+}
+
+// ─── History Log Storage ───
+
+export function loadHistoryLog() {
+  const saved = localStorage.getItem(STORAGE_KEYS.HISTORY_LOG)
+  return saved ? JSON.parse(saved) : []
+}
+
+export function saveHistoryLog(log) {
+  localStorage.setItem(STORAGE_KEYS.HISTORY_LOG, JSON.stringify(log))
+}
+
+export function appendHistory(period, label, branchData, kpiConfig) {
+  const log = loadHistoryLog()
+  const summary = computeProvinceSummary(branchData, kpiConfig)
+  const existing = log.findIndex((h) => h.period === period)
+  const entry = { period, label, summary, branchCount: branchData.length, timestamp: Date.now() }
+
+  if (existing >= 0) {
+    log[existing] = entry
+  } else {
+    log.push(entry)
+    log.sort((a, b) => a.period.localeCompare(b.period))
+  }
+
+  saveHistoryLog(log)
+  return log
+}
+
+// ─── Excel Parsing Pipeline ───
+
+export function parseExcelFile(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      try {
+        const data = new Uint8Array(e.target.result)
+        const workbook = XLSX.read(data, { type: 'array' })
+        const sheetName = workbook.SheetNames[0]
+        const sheet = workbook.Sheets[sheetName]
+        const json = XLSX.utils.sheet_to_json(sheet, { defval: '' })
+
+        if (!json.length) {
+          reject(new Error('ไม่พบข้อมูลในไฟล์ Excel'))
+          return
+        }
+
+        resolve(json)
+      } catch (err) {
+        reject(new Error(`อ่านไฟล์ Excel ไม่สำเร็จ: ${err.message}`))
+      }
+    }
+    reader.onerror = () => reject(new Error('ไม่สามารถอ่านไฟล์ได้'))
+    reader.readAsArrayBuffer(file)
+  })
+}
+
+export function mapExcelToBranchData(rows, kpiConfig) {
+  const headers = Object.keys(rows[0])
+
+  const branchCol = findHeader(headers, [
+    'branch_name', 'Branch_Name', 'สาขา', 'ชื่อสาขา', 'branch', 'name',
+  ])
+
+  if (!branchCol) {
+    throw new Error('ไม่พบคอลัมน์ชื่อสาขา (Branch_Name / สาขา)')
+  }
+
+  const branchData = []
+
+  for (const row of rows) {
+    const branchName = String(row[branchCol]).trim()
+    if (!branchName) continue
+
+    const kpis = {}
+    for (const kpi of kpiConfig) {
+      const kpiNum = kpi.kpi_id.replace('kpi_', '')
+      const targetCol = findHeader(headers, [
+        `KPI_${kpiNum}_Target`, `kpi_${kpiNum}_target`,
+        `${kpi.kpi_name}_เป้าหมาย`, `เป้าหมาย_${kpiNum}`,
+        `target_${kpiNum}`,
+      ])
+      const actualCol = findHeader(headers, [
+        `KPI_${kpiNum}_Actual`, `kpi_${kpiNum}_actual`,
+        `${kpi.kpi_name}_ผลงาน`, `ผลงาน_${kpiNum}`,
+        `actual_${kpiNum}`,
+      ])
+
+      const target = targetCol ? parseFloat(row[targetCol]) || 0 : 0
+      const actual = actualCol ? parseFloat(row[actualCol]) || 0 : 0
+
+      kpis[kpi.kpi_id] = { target, actual }
+    }
+
+    branchData.push({ branch_name: branchName, kpis })
+  }
+
+  return branchData
+}
+
+function findHeader(headers, candidates) {
+  const normalized = headers.map((h) => h.trim().toLowerCase().replace(/\s+/g, '_'))
+  for (const c of candidates) {
+    const target = c.trim().toLowerCase().replace(/\s+/g, '_')
+    const idx = normalized.findIndex((h) => h === target || h.includes(target))
+    if (idx >= 0) return headers[idx]
+  }
+  return null
+}
+
+export function extractPeriodFromFilename(filename) {
+  const match = filename.match(/(\d{4})[_\-.](\d{2})/)
+  if (match) {
+    return { period: `${match[1]}-${match[2]}`, label: formatPeriodLabel(match[1], match[2]) }
+  }
+  return null
+}
+
+function formatPeriodLabel(year, month) {
+  const thaiMonths = [
+    'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.',
+    'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.',
+  ]
+  const m = parseInt(month, 10)
+  const thaiYear = parseInt(year, 10) > 2500 ? year : parseInt(year, 10) + 543
+  return `${thaiMonths[m - 1]} ${thaiYear}`
+}
+
+// ─── Scoring Engine ───
+
+export function computeBranchKpiScore(actual, target, kpiConfig) {
+  if (!target || target === 0) return { remaining: 0, percent: 0, level: 0, score: 0, thresholdValues: {} }
+
+  const remaining = target - actual
+  const percent = (actual / target) * 100
+  const isReverse = kpiConfig.kpi_id === 'kpi_08'
+
+  const thresholdValues = {}
+  for (let i = 1; i <= 5; i++) {
+    const pct = kpiConfig.thresholds[`score_${i}`]
+    thresholdValues[`score_${i}`] = isReverse ? pct : (target * pct) / 100
+  }
+
+  let level = 0
+  if (isReverse) {
+    for (let i = 5; i >= 1; i--) {
+      if (actual <= thresholdValues[`score_${i}`]) {
+        level = i
+        break
+      }
+    }
+  } else {
+    for (let i = 5; i >= 1; i--) {
+      if (actual >= thresholdValues[`score_${i}`]) {
+        level = i
+        break
+      }
+    }
+  }
+
+  const score = level * kpiConfig.weight
+
+  return { remaining, percent, level, score, thresholdValues }
+}
+
+export function computeAllBranchScores(branchData, kpiConfig) {
+  return branchData.map((branch) => {
+    const scores = {}
+    let totalScore = 0
+    let maxPossibleScore = 0
+
+    for (const kpi of kpiConfig) {
+      const kpiData = branch.kpis[kpi.kpi_id]
+      if (!kpiData) {
+        scores[kpi.kpi_id] = { remaining: 0, percent: 0, level: 0, score: 0, thresholdValues: {} }
+        continue
+      }
+      const result = computeBranchKpiScore(kpiData.actual, kpiData.target, kpi)
+      scores[kpi.kpi_id] = result
+      totalScore += result.score
+      maxPossibleScore += 5 * kpi.weight
+    }
+
+    return {
+      branch_name: branch.branch_name,
+      kpis: branch.kpis,
+      scores,
+      totalScore,
+      maxPossibleScore,
+      overallPercent: maxPossibleScore > 0 ? (totalScore / maxPossibleScore) * 100 : 0,
+    }
+  })
+}
+
+export function computeProvinceSummary(branchData, kpiConfig) {
+  const summary = {}
+  for (const kpi of kpiConfig) {
+    const isPercent = kpi.unit === '%'
+    let totalTarget = 0
+    let totalActual = 0
+    let count = 0
+
+    for (const branch of branchData) {
+      const d = branch.kpis[kpi.kpi_id]
+      if (d) {
+        totalTarget += d.target
+        totalActual += d.actual
+        count++
+      }
+    }
+
+    if (isPercent && count > 0) {
+      const avgTarget = totalTarget / count
+      const avgActual = totalActual / count
+      const percent = avgTarget > 0 ? (avgActual / avgTarget) * 100 : 0
+      summary[kpi.kpi_id] = { target: avgTarget, actual: avgActual, percent }
+    } else {
+      const percent = totalTarget > 0 ? (totalActual / totalTarget) * 100 : 0
+      summary[kpi.kpi_id] = { target: totalTarget, actual: totalActual, percent }
+    }
+  }
+  return summary
+}
+
+export function rankBranches(computedBranches) {
+  return [...computedBranches]
+    .sort((a, b) => b.overallPercent - a.overallPercent)
+    .map((b, i) => ({ ...b, rank: i + 1 }))
+}
+
+export function rankBranchesByKpi(computedBranches, kpiId) {
+  return [...computedBranches]
+    .sort((a, b) => (b.scores[kpiId]?.percent || 0) - (a.scores[kpiId]?.percent || 0))
+    .map((b, i) => ({ ...b, kpiRank: i + 1 }))
+}
+
+// ─── Formatting Helpers ───
+
+export function formatNumber(num, unit) {
+  if (num === null || num === undefined) return '-'
+  if (unit === '%') return num.toFixed(2)
+  if (Math.abs(num) >= 1_000_000) return (num / 1_000_000).toFixed(2) + 'M'
+  if (Math.abs(num) >= 1_000) return num.toLocaleString('th-TH', { maximumFractionDigits: 2 })
+  return Number.isInteger(num) ? num.toString() : num.toFixed(2)
+}
+
+export function getPerformanceColor(percent) {
+  if (percent >= 100) return '#10B981'
+  if (percent >= 90) return '#F59E0B'
+  return '#EF4444'
+}
+
+export function getScoreLevelColor(level) {
+  if (level >= 5) return '#10B981'
+  if (level >= 4) return '#22C55E'
+  if (level >= 3) return '#F59E0B'
+  if (level >= 2) return '#F97316'
+  if (level >= 1) return '#EF4444'
+  return '#6B7280'
+}
+</file>
+
+<file path="src/features/admin-config/AdminPinGate.jsx">
+import { useState, useRef, useEffect, useCallback } from 'react'
+import { ShieldCheck, Lock } from 'lucide-react'
+
+const ADMIN_PIN = '1234'
+
+export default function AdminPinGate({ onSuccess }) {
+  const [digits, setDigits] = useState(['', '', '', ''])
+  const [shake, setShake] = useState(false)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
+
+  const refs = [useRef(null), useRef(null), useRef(null), useRef(null)]
+
+  useEffect(() => {
+    refs[0].current?.focus()
+  }, [])
+
+  const triggerShake = useCallback(() => {
+    setShake(true)
+    setError('รหัสไม่ถูกต้อง กรุณาลองใหม่')
+    setTimeout(() => {
+      setShake(false)
+      setError('')
+      setDigits(['', '', '', ''])
+      refs[0].current?.focus()
+    }, 600)
+  }, [])
+
+  const checkPin = useCallback((currentDigits) => {
+    const pin = currentDigits.join('')
+    if (pin === ADMIN_PIN) {
+      setSuccess(true)
+      setTimeout(() => onSuccess(), 300)
+    } else {
+      triggerShake()
+    }
+  }, [onSuccess, triggerShake])
+
+  const handleChange = useCallback((idx, value) => {
+    if (!/^\d?$/.test(value)) return
+
+    const digit = value.slice(-1)
+    const newDigits = [...digits]
+    newDigits[idx] = digit
+    setDigits(newDigits)
+
+    if (digit && idx < 3) {
+      refs[idx + 1].current?.focus()
+    }
+
+    if (digit && idx === 3) {
+      const full = [...newDigits.slice(0, 3), digit]
+      if (full.every(d => d !== '')) {
+        checkPin(full)
+      }
+    }
+  }, [digits, checkPin])
+
+  const handleKeyDown = useCallback((idx, e) => {
+    if (e.key === 'Backspace') {
+      if (!digits[idx] && idx > 0) {
+        const newDigits = [...digits]
+        newDigits[idx - 1] = ''
+        setDigits(newDigits)
+        refs[idx - 1].current?.focus()
+      } else {
+        const newDigits = [...digits]
+        newDigits[idx] = ''
+        setDigits(newDigits)
+      }
+    } else if (e.key === 'ArrowLeft' && idx > 0) {
+      refs[idx - 1].current?.focus()
+    } else if (e.key === 'ArrowRight' && idx < 3) {
+      refs[idx + 1].current?.focus()
+    }
+  }, [digits])
+
+  const handlePaste = useCallback((e) => {
+    e.preventDefault()
+    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 4)
+    if (!pasted) return
+    const newDigits = ['', '', '', '']
+    for (let i = 0; i < pasted.length; i++) {
+      newDigits[i] = pasted[i]
+    }
+    setDigits(newDigits)
+    const focusIdx = Math.min(pasted.length, 3)
+    refs[focusIdx].current?.focus()
+    if (pasted.length === 4) {
+      checkPin(newDigits)
+    }
+  }, [checkPin])
+
+  return (
+    <div
+      className="min-h-[70vh] flex items-center justify-center px-4"
+    >
+      <div
+        className="card w-full max-w-sm p-8 flex flex-col items-center gap-6"
+        style={{ animation: 'slideUp 0.3s ease' }}
+      >
+        {/* Icon + Title */}
+        <div className="flex flex-col items-center gap-3">
+          <div
+            className="w-16 h-16 rounded-2xl flex items-center justify-center"
+            style={{
+              backgroundColor: success
+                ? 'color-mix(in srgb, var(--c-accent) 20%, transparent)'
+                : 'color-mix(in srgb, var(--c-surface-alt) 80%, transparent)',
+              border: '1px solid var(--c-border)',
+              transition: 'background-color 0.3s ease',
+            }}
+          >
+            {success
+              ? <ShieldCheck size={32} style={{ color: 'var(--c-accent)' }} />
+              : <Lock size={32} style={{ color: 'var(--c-text-2)' }} />
+            }
+          </div>
+          <div className="text-center">
+            <h2
+              className="text-lg font-bold tracking-tight"
+              style={{ color: 'var(--c-text-1)' }}
+            >
+              Admin Authentication
+            </h2>
+            <p className="text-sm mt-1" style={{ color: 'var(--c-text-2)' }}>
+              กรอกรหัส PIN 4 หลักเพื่อเข้าใช้งาน
+            </p>
+          </div>
+        </div>
+
+        {/* PIN Fields */}
+        <div className={`flex gap-3 ${shake ? 'shake' : ''} ${success ? 'pin-success' : ''}`}>
+          {digits.map((digit, idx) => (
+            <input
+              key={idx}
+              ref={refs[idx]}
+              type="password"
+              inputMode="numeric"
+              maxLength={1}
+              value={digit}
+              className="pin-input"
+              style={{
+                borderColor: success
+                  ? 'var(--c-accent)'
+                  : digit
+                    ? 'color-mix(in srgb, var(--c-accent) 60%, var(--c-border))'
+                    : 'var(--c-border)',
+              }}
+              onChange={(e) => handleChange(idx, e.target.value)}
+              onKeyDown={(e) => handleKeyDown(idx, e)}
+              onPaste={handlePaste}
+              disabled={success}
+              autoComplete="off"
+            />
+          ))}
+        </div>
+
+        {/* Error Message */}
+        <div className="h-5 flex items-center justify-center">
+          {error && (
+            <p
+              className="text-sm font-medium"
+              style={{ color: '#ef4444', animation: 'fadeIn 0.2s ease' }}
+            >
+              {error}
+            </p>
+          )}
+          {success && (
+            <p
+              className="text-sm font-medium"
+              style={{ color: 'var(--c-accent)', animation: 'fadeIn 0.2s ease' }}
+            >
+              ✓ เข้าสู่ระบบสำเร็จ
+            </p>
+          )}
+        </div>
+
+        {/* Hint */}
+        <p className="text-xs text-center" style={{ color: 'var(--c-text-2)', opacity: 0.5 }}>
+          กรอกรหัส PIN อัตโนมัติเมื่อพิมพ์ครบ 4 หลัก
+        </p>
+      </div>
+    </div>
+  )
+}
+</file>
+
+<file path="src/features/admin-config/AdminSettings.jsx">
+import { useState, useEffect, useCallback } from 'react'
+import { Plus, Pencil, Trash2, Save, X, Download, Upload, Settings, Calendar, FileSpreadsheet } from 'lucide-react'
+import {
+  loadKpiConfig, saveKpiConfig, loadDefaultKpiConfig,
+  loadBranchData, saveBranchData, loadHistoryLog, appendHistory,
+  parseExcelFile, mapExcelToBranchData, extractPeriodFromFilename,
+} from '../../data/transformer'
+import AdminPinGate from './AdminPinGate'
+
+const EMPTY_KPI = {
+  kpi_id: '',
+  kpi_name: '',
+  unit: 'ราย',
+  weight: 1.0,
+  max_score: 5,
+  category: '',
+  display_size: 'small',
+  thresholds: { score_1: 80, score_2: 85, score_3: 90, score_4: 95, score_5: 100 },
+}
+
+export default function AdminSettings() {
+  // ─── PIN Gate ───
+  const [authenticated, setAuthenticated] = useState(
+    () => sessionStorage.getItem('admin_auth') === '1'
+  )
+
+  const handleAuthenticated = useCallback(() => {
+    sessionStorage.setItem('admin_auth', '1')
+    setAuthenticated(true)
+  }, [])
+
+  // ─── KPI Config State ───
+  const [kpiConfig, setKpiConfig] = useState([])
+  const [modalOpen, setModalOpen] = useState(false)
+  const [editingKpi, setEditingKpi] = useState(null)
+  const [form, setForm] = useState({ ...EMPTY_KPI })
+  const [saveMsg, setSaveMsg] = useState(null)
+
+  // ─── Upload State ───
+  const [branchData, setBranchData] = useState([])
+  const [uploading, setUploading] = useState(false)
+  const [uploadMsg, setUploadMsg] = useState(null)
+  const [selectedPeriod, setSelectedPeriod] = useState('')
+  const [periodLabel, setPeriodLabel] = useState('')
+  const [historyLog, setHistoryLog] = useState([])
+
+  useEffect(() => {
+    if (!authenticated) return
+    ;(async () => {
+      let config = loadKpiConfig()
+      if (!config) config = await loadDefaultKpiConfig()
+      setKpiConfig(config)
+
+      const data = loadBranchData() || []
+      setBranchData(data)
+      setHistoryLog(loadHistoryLog())
+    })()
+  }, [authenticated])
+
+  // ─── Upload Handler ───
+  const handleUpload = useCallback(async (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    setUploadMsg(null)
+
+    try {
+      const rows = await parseExcelFile(file)
+      const mapped = mapExcelToBranchData(rows, kpiConfig)
+      saveBranchData(mapped)
+      setBranchData(mapped)
+
+      let period = selectedPeriod
+      let label = periodLabel
+
+      if (!period) {
+        const extracted = extractPeriodFromFilename(file.name)
+        if (extracted) {
+          period = extracted.period
+          label = extracted.label
+        }
+      }
+
+      if (period && label) {
+        const log = appendHistory(period, label, mapped, kpiConfig)
+        setHistoryLog(log)
+      }
+
+      setUploadMsg({ type: 'success', text: `อัปโหลดสำเร็จ: ${mapped.length} สาขา` })
+    } catch (err) {
+      setUploadMsg({ type: 'error', text: err.message })
+    } finally {
+      setUploading(false)
+      e.target.value = ''
+    }
+  }, [kpiConfig, selectedPeriod, periodLabel])
+
+  // ─── KPI CRUD ───
+  const openAdd = () => {
+    const nextNum = kpiConfig.length + 1
+    setForm({ ...EMPTY_KPI, kpi_id: `kpi_${String(nextNum).padStart(2, '0')}` })
+    setEditingKpi(null)
+    setModalOpen(true)
+  }
+
+  const openEdit = (kpi) => {
+    setForm({ ...kpi, thresholds: { ...kpi.thresholds } })
+    setEditingKpi(kpi.kpi_id)
+    setModalOpen(true)
+  }
+
+  const handleDelete = (kpiId) => {
+    if (!confirm(`ลบ KPI "${kpiId}" ?`)) return
+    const updated = kpiConfig.filter((k) => k.kpi_id !== kpiId)
+    setKpiConfig(updated)
+    saveKpiConfig(updated)
+    flash('ลบเรียบร้อย')
+  }
+
+  const handleSave = () => {
+    if (!form.kpi_id || !form.kpi_name) {
+      alert('กรุณากรอก ID และ ชื่อ KPI')
+      return
+    }
+
+    let updated
+    if (editingKpi) {
+      updated = kpiConfig.map((k) => (k.kpi_id === editingKpi ? { ...form } : k))
+    } else {
+      if (kpiConfig.find((k) => k.kpi_id === form.kpi_id)) {
+        alert(`KPI ID "${form.kpi_id}" ซ้ำ`)
+        return
+      }
+      updated = [...kpiConfig, { ...form }]
+    }
+
+    setKpiConfig(updated)
+    saveKpiConfig(updated)
+    setModalOpen(false)
+    flash(editingKpi ? 'แก้ไขเรียบร้อย' : 'เพิ่มเรียบร้อย')
+  }
+
+  const handleExport = () => {
+    const blob = new Blob([JSON.stringify(kpiConfig, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'kpi-config.json'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  const handleImport = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const data = JSON.parse(ev.target.result)
+        if (Array.isArray(data)) {
+          setKpiConfig(data)
+          saveKpiConfig(data)
+          flash(`นำเข้า ${data.length} KPI สำเร็จ`)
+        }
+      } catch {
+        alert('ไฟล์ JSON ไม่ถูกต้อง')
+      }
+    }
+    reader.readAsText(file)
+    e.target.value = ''
+  }
+
+  const handleReset = async () => {
+    if (!confirm('รีเซ็ตค่า KPI ทั้งหมดกลับเป็นค่าเริ่มต้น?')) return
+    const config = await loadDefaultKpiConfig()
+    setKpiConfig(config)
+    flash('รีเซ็ตเรียบร้อย')
+  }
+
+  const flash = (msg) => {
+    setSaveMsg(msg)
+    setTimeout(() => setSaveMsg(null), 2500)
+  }
+
+  const updateField = (field, value) => setForm((prev) => ({ ...prev, [field]: value }))
+  const updateThreshold = (key, value) =>
+    setForm((prev) => ({ ...prev, thresholds: { ...prev.thresholds, [key]: parseFloat(value) || 0 } }))
+
+  // ─── PIN Gate Screen ───
+  if (!authenticated) {
+    return <AdminPinGate onSuccess={handleAuthenticated} />
+  }
+
+  return (
+    <div className="space-y-6">
+
+      {/* ────── Upload Section (ย้ายมาจากหน้าแรก) ────── */}
+      <div className="card p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <FileSpreadsheet size={16} style={{ color: 'var(--c-accent)' }} />
+          <h2 className="text-sm font-bold" style={{ color: 'var(--c-text-1)' }}>
+            อัปโหลดข้อมูล Excel
+          </h2>
+        </div>
+        <div className="flex flex-wrap items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Calendar size={16} style={{ color: 'var(--c-text-2)' }} />
+            <select
+              className="input-field text-sm w-auto"
+              value={selectedPeriod}
+              onChange={(e) => {
+                setSelectedPeriod(e.target.value)
+                if (e.target.value) {
+                  const [y, m] = e.target.value.split('-')
+                  const thaiMonths = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']
+                  const thaiYear = parseInt(y) > 2500 ? y : parseInt(y) + 543
+                  setPeriodLabel(`${thaiMonths[parseInt(m) - 1]} ${thaiYear}`)
+                }
+              }}
+            >
+              <option value="">เลือกงวด (หรือตั้งชื่อไฟล์ Data_YYYY_MM)</option>
+              {Array.from({ length: 12 }, (_, i) => {
+                const m = String(i + 1).padStart(2, '0')
+                const thaiMonths = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']
+                return (
+                  <option key={m} value={`2569-${m}`}>
+                    {thaiMonths[i]} 2569
+                  </option>
+                )
+              })}
+            </select>
+          </div>
+
+          <label className="btn-primary flex items-center gap-2 text-sm cursor-pointer">
+            <Upload size={16} />
+            {uploading ? 'กำลังอัปโหลด...' : 'อัปโหลด Excel'}
+            <input
+              type="file"
+              accept=".xlsx,.xls,.csv"
+              className="hidden"
+              onChange={handleUpload}
+              disabled={uploading}
+            />
+          </label>
+
+          {uploadMsg && (
+            <span className={`text-sm font-medium ${uploadMsg.type === 'success' ? 'num-positive' : 'num-negative'}`}>
+              {uploadMsg.text}
+            </span>
+          )}
+
+          <span className="text-xs ml-auto" style={{ color: 'var(--c-text-2)' }}>
+            <FileSpreadsheet size={14} className="inline mr-1" />
+            {branchData.length} สาขา | {kpiConfig.length} KPI
+          </span>
+        </div>
+      </div>
+
+      {/* ────── KPI Config Header ────── */}
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <div className="flex items-center gap-3">
+          <Settings size={20} style={{ color: 'var(--c-accent)' }} />
+          <h1 className="text-lg font-bold" style={{ color: 'var(--c-text-1)' }}>
+            จัดการ KPI
+          </h1>
+          {saveMsg && (
+            <span className="text-sm font-medium num-positive" style={{ animation: 'fadeIn 0.2s ease' }}>
+              {saveMsg}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <button className="btn-primary flex items-center gap-1.5 text-sm" onClick={openAdd}>
+            <Plus size={14} /> เพิ่ม KPI
+          </button>
+          <button className="btn-secondary flex items-center gap-1.5 text-sm" onClick={handleExport}>
+            <Download size={14} /> ส่งออก
+          </button>
+          <label className="btn-secondary flex items-center gap-1.5 text-sm cursor-pointer">
+            <Upload size={14} /> นำเข้า
+            <input type="file" accept=".json" className="hidden" onChange={handleImport} />
+          </label>
+          <button className="btn-secondary text-sm" onClick={handleReset}>
+            รีเซ็ต
+          </button>
+        </div>
+      </div>
+
+      {/* ────── KPI Master List ────── */}
+      <div className="card overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th className="text-center w-16">ID</th>
+                <th className="text-left">ชื่อ KPI</th>
+                <th className="text-center">หน่วย</th>
+                <th className="text-center">หมวด</th>
+                <th className="text-center">น้ำหนัก</th>
+                <th className="text-center">คะแนนเต็ม</th>
+                <th className="text-center">ขนาดการ์ด</th>
+                <th className="text-center">เกณฑ์ 1</th>
+                <th className="text-center">เกณฑ์ 2</th>
+                <th className="text-center">เกณฑ์ 3</th>
+                <th className="text-center">เกณฑ์ 4</th>
+                <th className="text-center">เกณฑ์ 5</th>
+                <th className="text-center w-24">จัดการ</th>
+              </tr>
+            </thead>
+            <tbody>
+              {kpiConfig.map((kpi) => (
+                <tr key={kpi.kpi_id}>
+                  <td className="text-center font-mono font-bold" style={{ color: 'var(--c-accent)' }}>
+                    {kpi.kpi_id.replace('kpi_', '')}
+                  </td>
+                  <td className="text-left font-medium" style={{ color: 'var(--c-text-1)' }}>
+                    {kpi.kpi_name}
+                  </td>
+                  <td className="text-center">{kpi.unit}</td>
+                  <td className="text-center">{kpi.category}</td>
+                  <td className="text-center font-mono">{kpi.weight}</td>
+                  <td className="text-center font-mono">{kpi.max_score}</td>
+                  <td className="text-center">
+                    <span
+                      className="text-xs px-2 py-0.5 rounded"
+                      style={{
+                        backgroundColor: kpi.display_size === 'large' ? 'var(--c-accent)' : 'var(--c-surface-alt)',
+                        color: kpi.display_size === 'large' ? '#fff' : 'var(--c-text-2)',
+                      }}
+                    >
+                      {kpi.display_size === 'large' ? 'ใหญ่' : 'เล็ก'}
+                    </span>
+                  </td>
+                  <td className="text-center font-mono">{kpi.thresholds.score_1}%</td>
+                  <td className="text-center font-mono">{kpi.thresholds.score_2}%</td>
+                  <td className="text-center font-mono">{kpi.thresholds.score_3}%</td>
+                  <td className="text-center font-mono">{kpi.thresholds.score_4}%</td>
+                  <td className="text-center font-mono">{kpi.thresholds.score_5}%</td>
+                  <td className="text-center">
+                    <div className="flex justify-center gap-1">
+                      <button
+                        onClick={() => openEdit(kpi)}
+                        className="p-1.5 rounded transition-colors"
+                        style={{ color: 'var(--c-accent)' }}
+                        title="แก้ไข"
+                      >
+                        <Pencil size={14} />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(kpi.kpi_id)}
+                        className="p-1.5 rounded transition-colors"
+                        style={{ color: '#EF4444' }}
+                        title="ลบ"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* ────── Add/Edit Modal ────── */}
+      {modalOpen && (
+        <div className="modal-overlay" onClick={() => setModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-base font-bold" style={{ color: 'var(--c-text-1)' }}>
+                {editingKpi ? `แก้ไข KPI: ${editingKpi}` : 'เพิ่ม KPI ใหม่'}
+              </h2>
+              <button onClick={() => setModalOpen(false)} style={{ color: 'var(--c-text-2)' }}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {/* Row 1: ID + Name */}
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="text-xs font-medium mb-1 block" style={{ color: 'var(--c-text-2)' }}>
+                    KPI ID
+                  </label>
+                  <input
+                    className="input-field text-sm"
+                    value={form.kpi_id}
+                    onChange={(e) => updateField('kpi_id', e.target.value)}
+                    disabled={!!editingKpi}
+                    placeholder="kpi_01"
+                  />
+                </div>
+                <div className="col-span-2">
+                  <label className="text-xs font-medium mb-1 block" style={{ color: 'var(--c-text-2)' }}>
+                    ชื่อ KPI
+                  </label>
+                  <input
+                    className="input-field text-sm"
+                    value={form.kpi_name}
+                    onChange={(e) => updateField('kpi_name', e.target.value)}
+                    placeholder="ชื่อตัวชี้วัด"
+                  />
+                </div>
+              </div>
+
+              {/* Row 2: Unit, Category, Weight, Max Score, Size */}
+              <div className="grid grid-cols-5 gap-3">
+                <div>
+                  <label className="text-xs font-medium mb-1 block" style={{ color: 'var(--c-text-2)' }}>หน่วย</label>
+                  <input className="input-field text-sm" value={form.unit} onChange={(e) => updateField('unit', e.target.value)} placeholder="ราย" />
+                </div>
+                <div>
+                  <label className="text-xs font-medium mb-1 block" style={{ color: 'var(--c-text-2)' }}>หมวด</label>
+                  <input className="input-field text-sm" value={form.category} onChange={(e) => updateField('category', e.target.value)} placeholder="สินเชื่อ" />
+                </div>
+                <div>
+                  <label className="text-xs font-medium mb-1 block" style={{ color: 'var(--c-text-2)' }}>น้ำหนัก</label>
+                  <input type="number" step="0.1" className="input-field text-sm" value={form.weight} onChange={(e) => updateField('weight', parseFloat(e.target.value) || 0)} />
+                </div>
+                <div>
+                  <label className="text-xs font-medium mb-1 block" style={{ color: 'var(--c-text-2)' }}>คะแนนเต็ม</label>
+                  <input type="number" className="input-field text-sm" value={form.max_score} onChange={(e) => updateField('max_score', parseInt(e.target.value) || 5)} />
+                </div>
+                <div>
+                  <label className="text-xs font-medium mb-1 block" style={{ color: 'var(--c-text-2)' }}>ขนาดการ์ด</label>
+                  <select className="input-field text-sm" value={form.display_size} onChange={(e) => updateField('display_size', e.target.value)}>
+                    <option value="small">เล็ก</option>
+                    <option value="large">ใหญ่ (รายเดือน)</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Row 3: Thresholds */}
+              <div>
+                <label className="text-xs font-medium mb-2 block" style={{ color: 'var(--c-text-2)' }}>
+                  เกณฑ์คะแนน (% ของเป้าหมาย)
+                </label>
+                <div className="grid grid-cols-5 gap-3">
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <div key={n}>
+                      <label className="text-xs mb-1 block text-center" style={{ color: getScoreColor(n), fontWeight: 600 }}>
+                        คะแนน {n}
+                      </label>
+                      <input
+                        type="number"
+                        className="input-field text-sm text-center"
+                        value={form.thresholds[`score_${n}`]}
+                        onChange={(e) => updateThreshold(`score_${n}`, e.target.value)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex justify-end gap-2 pt-2">
+                <button className="btn-secondary text-sm" onClick={() => setModalOpen(false)}>ยกเลิก</button>
+                <button className="btn-primary flex items-center gap-1.5 text-sm" onClick={handleSave}>
+                  <Save size={14} />
+                  {editingKpi ? 'บันทึกการแก้ไข' : 'เพิ่ม KPI'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function getScoreColor(level) {
+  const colors = { 1: '#EF4444', 2: '#F97316', 3: '#F59E0B', 4: '#22C55E', 5: '#10B981' }
+  return colors[level] || '#6B7280'
+}
+</file>
+
+<file path="src/features/branch-detail/BranchOverview.jsx">
+import { useState, useEffect } from 'react'
+import { Users } from 'lucide-react'
+import {
+  loadKpiConfig, loadDefaultKpiConfig, loadBranchData,
+  computeAllBranchScores, rankBranches, formatNumber,
+  getPerformanceColor, getScoreLevelColor, loadHistoryLog,
+} from '../../data/transformer'
+import { SAMPLE_BRANCH_DATA } from '../../data/sampleData'
+import HistoryChart from '../kpi-dashboard/HistoryChart'
+
+export default function BranchOverview() {
+  const [kpiConfig, setKpiConfig] = useState([])
+  const [branchData, setBranchData] = useState([])
+  const [selectedBranch, setSelectedBranch] = useState('')
+  const [historyLog, setHistoryLog] = useState([])
+
+  useEffect(() => {
+    (async () => {
+      let config = loadKpiConfig()
+      if (!config) config = await loadDefaultKpiConfig()
+      setKpiConfig(config)
+
+      const data = loadBranchData() || SAMPLE_BRANCH_DATA
+      setBranchData(data)
+      if (data.length) setSelectedBranch(data[0].branch_name)
+
+      setHistoryLog(loadHistoryLog())
+    })()
+  }, [])
+
+  const computed = computeAllBranchScores(branchData, kpiConfig)
+  const ranked = rankBranches(computed)
+  const branch = ranked.find((b) => b.branch_name === selectedBranch)
+
+  return (
+    <div className="space-y-6">
+      {/* Branch Selector */}
+      <div className="card p-4 flex items-center gap-4 flex-wrap">
+        <Users size={18} style={{ color: 'var(--c-accent)' }} />
+        <h2 className="text-base font-bold" style={{ color: 'var(--c-text-1)' }}>
+          ภาพรวมสาขา
+        </h2>
+        <select
+          className="input-field text-sm w-auto"
+          value={selectedBranch}
+          onChange={(e) => setSelectedBranch(e.target.value)}
+        >
+          {branchData.map((b) => (
+            <option key={b.branch_name} value={b.branch_name}>
+              {b.branch_name}
+            </option>
+          ))}
+        </select>
+        {branch && (
+          <span className="text-sm ml-auto" style={{ color: 'var(--c-text-2)' }}>
+            อันดับ #{branch.rank} | คะแนนรวม {branch.overallPercent.toFixed(2)}%
+          </span>
+        )}
+      </div>
+
+      {branch && (
+        <>
+          {/* KPI Score Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {kpiConfig.map((kpi) => {
+              const d = branch.kpis[kpi.kpi_id] || { target: 0, actual: 0 }
+              const s = branch.scores[kpi.kpi_id] || {}
+              const percent = d.target > 0 ? (d.actual / d.target) * 100 : 0
+              const color = getPerformanceColor(percent)
+
+              return (
+                <div key={kpi.kpi_id} className="card p-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span
+                      className="text-xs font-bold px-1.5 py-0.5 rounded"
+                      style={{ backgroundColor: 'var(--c-accent)', color: '#fff', fontSize: '0.65rem' }}
+                    >
+                      {kpi.kpi_id.replace('kpi_', '')}
+                    </span>
+                    <span className="text-xs truncate" style={{ color: 'var(--c-text-2)' }}>
+                      {kpi.kpi_name}
+                    </span>
+                  </div>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-lg font-bold" style={{ color }}>
+                      {formatNumber(d.actual, kpi.unit)}
+                    </span>
+                    <span className="text-xs" style={{ color: 'var(--c-text-2)' }}>
+                      / {formatNumber(d.target, kpi.unit)}
+                    </span>
+                  </div>
+                  <div className="progress-bar mt-1.5">
+                    <div
+                      className="progress-bar-fill"
+                      style={{ width: `${Math.min(percent, 100)}%`, backgroundColor: color }}
+                    />
+                  </div>
+                  <div className="flex justify-between mt-1">
+                    <span className="text-xs font-mono" style={{ color }}>
+                      {percent.toFixed(1)}%
+                    </span>
+                    <span
+                      className="text-xs font-bold px-1.5 rounded"
+                      style={{ backgroundColor: getScoreLevelColor(s.level || 0), color: '#fff' }}
+                    >
+                      ระดับ {s.level || 0}
+                    </span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Full KPI Table */}
+          <div className="card overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th className="text-left">ตัวชี้วัด</th>
+                    <th className="text-right">เป้าหมาย</th>
+                    <th className="text-right">ผลงาน</th>
+                    <th className="text-right">ต้องทำอีก</th>
+                    <th className="text-center">% ผลงาน</th>
+                    <th className="text-center">ระดับ</th>
+                    <th className="text-right">คะแนน</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {kpiConfig.map((kpi) => {
+                    const d = branch.kpis[kpi.kpi_id] || { target: 0, actual: 0 }
+                    const s = branch.scores[kpi.kpi_id] || {}
+                    const remaining = d.target - d.actual
+                    const percent = d.target > 0 ? (d.actual / d.target) * 100 : 0
+                    const color = getPerformanceColor(percent)
+
+                    return (
+                      <tr key={kpi.kpi_id}>
+                        <td className="text-left">
+                          <span className="font-medium" style={{ color: 'var(--c-text-1)' }}>
+                            {kpi.kpi_name}
+                          </span>
+                          <span className="text-xs ml-1" style={{ color: 'var(--c-text-2)' }}>
+                            ({kpi.unit})
+                          </span>
+                        </td>
+                        <td className="text-right font-mono">{formatNumber(d.target, kpi.unit)}</td>
+                        <td className="text-right font-mono font-semibold" style={{ color: 'var(--c-text-1)' }}>
+                          {formatNumber(d.actual, kpi.unit)}
+                        </td>
+                        <td className="text-right font-mono">
+                          {remaining > 0 ? (
+                            <span className="num-negative">{formatNumber(remaining, kpi.unit)}</span>
+                          ) : (
+                            <span className="num-positive">✓</span>
+                          )}
+                        </td>
+                        <td className="text-center">
+                          <span className="text-xs font-bold font-mono" style={{ color }}>
+                            {percent.toFixed(2)}%
+                          </span>
+                        </td>
+                        <td className="text-center">
+                          <span
+                            className="inline-block px-2 py-0.5 rounded text-xs font-bold text-white"
+                            style={{ backgroundColor: getScoreLevelColor(s.level || 0) }}
+                          >
+                            {s.level || 0}
+                          </span>
+                        </td>
+                        <td className="text-right font-mono font-bold" style={{
+                          color: getScoreLevelColor(s.level || 0),
+                        }}>
+                          {(s.score || 0).toFixed(2)}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                  <tr style={{ backgroundColor: 'var(--c-surface-alt)', fontWeight: 700 }}>
+                    <td className="text-left" style={{ color: 'var(--c-accent)' }}>รวมคะแนน</td>
+                    <td colSpan={5}></td>
+                    <td className="text-right font-mono font-bold" style={{ color: 'var(--c-accent)' }}>
+                      {branch.totalScore.toFixed(2)} / {branch.maxPossibleScore.toFixed(2)}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* History Chart */}
+          {historyLog.length > 0 && kpiConfig.length > 0 && (
+            <HistoryChart
+              historyLog={historyLog}
+              kpiId={kpiConfig[0].kpi_id}
+              title={`แนวโน้มผลงาน ${selectedBranch} (รายเดือน)`}
+              targetLine={100}
+            />
+          )}
+        </>
+      )}
+
+      {/* Future: รายคน */}
+      <div className="card p-8 text-center" style={{ borderStyle: 'dashed' }}>
+        <Users size={32} className="mx-auto mb-3" style={{ color: 'var(--c-text-2)', opacity: 0.5 }} />
+        <p className="text-sm font-medium" style={{ color: 'var(--c-text-2)' }}>
+          หน้า "รายคน" — ฟีเจอร์ในอนาคต
+        </p>
+        <p className="text-xs mt-1" style={{ color: 'var(--c-text-2)', opacity: 0.6 }}>
+          จะแสดงผลงาน KPI ของพนักงานแต่ละคน
+        </p>
+      </div>
+    </div>
+  )
+}
+</file>
+
+<file path="src/features/kpi-dashboard/HistoryChart.jsx">
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Legend,
+} from 'recharts'
+
+export default function HistoryChart({ historyLog, kpiId, title, targetLine }) {
+  const data = historyLog
+    .filter((h) => h.summary)
+    .map((h) => {
+      const kpiData = h.summary[kpiId]
+      return {
+        name: h.label,
+        percent: kpiData ? parseFloat(kpiData.percent.toFixed(2)) : null,
+      }
+    })
+    .filter((d) => d.percent !== null)
+
+  if (!data.length) {
+    return (
+      <div className="card p-6 text-center">
+        <p className="text-sm" style={{ color: 'var(--c-text-2)' }}>
+          {title}: ยังไม่มีข้อมูลย้อนหลัง
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="card p-4">
+      <h3 className="text-sm font-bold mb-4" style={{ color: 'var(--c-text-1)' }}>
+        {title}
+      </h3>
+      <ResponsiveContainer width="100%" height={250}>
+        <LineChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--c-border)" />
+          <XAxis
+            dataKey="name"
+            tick={{ fill: 'var(--c-text-2)', fontSize: 11 }}
+            axisLine={{ stroke: 'var(--c-border)' }}
+          />
+          <YAxis
+            domain={['auto', 'auto']}
+            tick={{ fill: 'var(--c-text-2)', fontSize: 11 }}
+            axisLine={{ stroke: 'var(--c-border)' }}
+          />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: 'var(--c-surface)',
+              border: '1px solid var(--c-border)',
+              borderRadius: 8,
+              color: 'var(--c-text-1)',
+              fontSize: 12,
+            }}
+            formatter={(value) => [`${value}%`, '% ผลงาน']}
+          />
+          <Legend wrapperStyle={{ fontSize: 11, color: 'var(--c-text-2)' }} />
+          {targetLine && (
+            <ReferenceLine
+              y={targetLine}
+              stroke="#EF4444"
+              strokeDasharray="5 5"
+              label={{ value: `เป้า ${targetLine}%`, fill: '#EF4444', fontSize: 11 }}
+            />
+          )}
+          <Line
+            type="monotone"
+            dataKey="percent"
+            name="% ผลงาน"
+            stroke="var(--c-accent)"
+            strokeWidth={2.5}
+            dot={{ fill: 'var(--c-accent)', r: 4 }}
+            activeDot={{ r: 6 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  )
+}
+</file>
+
+<file path="src/features/kpi-dashboard/KpiCard.jsx">
+import { formatNumber, getPerformanceColor } from '../../data/transformer'
+
+export default function KpiCard({ kpi, summary }) {
+  if (!summary) return null
+
+  const percent = summary.percent
+  const color = getPerformanceColor(percent)
+
+  return (
+    <div className="card card-hover p-4 flex flex-col gap-2">
+      {/* KPI Number + Name */}
+      <div className="flex items-start justify-between gap-2">
+        <span
+          className="text-xs font-bold px-2 py-0.5 rounded"
+          style={{ backgroundColor: 'var(--c-accent)', color: '#fff' }}
+        >
+          {kpi.kpi_id.replace('kpi_', '')}
+        </span>
+        <span className="text-xs" style={{ color: 'var(--c-text-2)' }}>
+          {kpi.unit}
+        </span>
+      </div>
+
+      <h3 className="text-sm font-semibold leading-snug" style={{ color: 'var(--c-text-1)' }}>
+        {kpi.kpi_name}
+      </h3>
+
+      {/* Actual Number */}
+      <div className="flex items-baseline gap-2">
+        <span className="text-2xl font-bold" style={{ color }}>
+          {formatNumber(summary.actual, kpi.unit)}
+        </span>
+        <span className="text-xs" style={{ color: 'var(--c-text-2)' }}>
+          {kpi.unit}
+        </span>
+      </div>
+
+      {/* Target */}
+      <div className="text-xs" style={{ color: 'var(--c-text-2)' }}>
+        เป้าหมาย {formatNumber(summary.target, kpi.unit)}
+      </div>
+
+      {/* Progress Bar */}
+      <div className="progress-bar">
+        <div
+          className="progress-bar-fill"
+          style={{
+            width: `${Math.min(percent, 100)}%`,
+            backgroundColor: color,
+          }}
+        />
+      </div>
+
+      {/* Percent */}
+      <div className="text-right">
+        <span className="text-sm font-bold" style={{ color }}>
+          {percent.toFixed(2)}%
+        </span>
+      </div>
+    </div>
+  )
+}
+</file>
+
+<file path="src/features/kpi-dashboard/KpiCardLarge.jsx">
+import { formatNumber, getPerformanceColor } from '../../data/transformer'
+
+const THAI_MONTHS = [
+  'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.',
+  'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.',
+]
+
+export default function KpiCardLarge({ kpi, summary, historyLog }) {
+  const percent = summary?.percent || 0
+  const color = getPerformanceColor(percent)
+
+  const monthlyData = historyLog
+    .filter((h) => h.summary && h.summary[kpi.kpi_id])
+    .map((h) => ({
+      label: h.label,
+      value: h.summary[kpi.kpi_id].percent,
+    }))
+
+  return (
+    <div className="card p-5 col-span-full lg:col-span-1">
+      {/* Header */}
+      <div className="flex items-start justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span
+            className="text-xs font-bold px-2 py-0.5 rounded"
+            style={{ backgroundColor: 'var(--c-accent)', color: '#fff' }}
+          >
+            {kpi.kpi_id.replace('kpi_', '')}
+          </span>
+          <h3 className="text-sm font-semibold" style={{ color: 'var(--c-text-1)' }}>
+            {kpi.kpi_name}
+          </h3>
+        </div>
+        <span className="text-xs" style={{ color: 'var(--c-text-2)' }}>
+          เป้าหมาย {kpi.thresholds?.score_5 ?? '-'}%
+        </span>
+      </div>
+
+      {/* Summary */}
+      {summary && (
+        <div className="flex items-baseline gap-3 mb-4">
+          <span className="text-3xl font-bold" style={{ color }}>
+            {formatNumber(summary.actual, kpi.unit)}
+          </span>
+          <span className="text-sm" style={{ color: 'var(--c-text-2)' }}>
+            {kpi.unit} | {percent.toFixed(2)}%
+          </span>
+        </div>
+      )}
+
+      {/* Monthly Grid */}
+      <div className="grid grid-cols-6 gap-2">
+        {THAI_MONTHS.map((month, i) => {
+          const entry = monthlyData.find((m) => m.label.startsWith(month))
+          const val = entry?.value
+          const mColor = val != null ? getPerformanceColor(val) : 'var(--c-text-2)'
+
+          return (
+            <div
+              key={i}
+              className="rounded-lg p-2 text-center"
+              style={{ backgroundColor: 'var(--c-surface-alt)' }}
+            >
+              <div className="text-xs font-medium mb-1" style={{ color: 'var(--c-text-2)' }}>
+                {month}
+              </div>
+              <div className="text-sm font-bold" style={{ color: mColor }}>
+                {val != null ? val.toFixed(2) : '-'}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      {!monthlyData.length && (
+        <p className="text-xs mt-2 text-center" style={{ color: 'var(--c-text-2)' }}>
+          ยังไม่มีข้อมูลรายเดือน — อัปโหลด Excel เพื่อเพิ่มข้อมูล
+        </p>
+      )}
+    </div>
+  )
+}
+</file>
+
+<file path="src/features/kpi-dashboard/KpiDetailSection.jsx">
+import { formatNumber, getPerformanceColor, getScoreLevelColor } from '../../data/transformer'
+
+const LEVELS = [1, 2, 3, 4, 5]
+
+function formatDiff(diff) {
+  const abs = Math.abs(diff)
+  const formatted = abs.toLocaleString('th-TH', { maximumFractionDigits: 0 })
+  if (diff > 0) return `+${formatted}`
+  if (diff < 0) return `−${formatted}`
+  return '0'
+}
+
+export default function KpiDetailSection({ kpi, computedBranches }) {
+  const ranked = [...computedBranches]
+    .sort((a, b) => (b.scores[kpi.kpi_id]?.percent || 0) - (a.scores[kpi.kpi_id]?.percent || 0))
+    .map((b, i) => ({ ...b, kpiRank: i + 1 }))
+
+  const totals = ranked.reduce(
+    (acc, b) => {
+      const d = b.kpis[kpi.kpi_id] || { target: 0, actual: 0 }
+      acc.target += d.target
+      acc.actual += d.actual
+      return acc
+    },
+    { target: 0, actual: 0 }
+  )
+  const totalPercent = totals.target > 0 ? (totals.actual / totals.target) * 100 : 0
+
+  return (
+    <div className="card overflow-hidden">
+      {/* Header */}
+      <div
+        className="flex items-center gap-3 px-4 py-3 border-b"
+        style={{ borderColor: 'var(--c-border)', backgroundColor: 'var(--c-surface-alt)' }}
+      >
+        <span
+          className="text-xs font-bold px-2.5 py-1 rounded"
+          style={{ backgroundColor: 'var(--c-accent)', color: '#fff' }}
+        >
+          {kpi.max_score} คะแนน
+        </span>
+        <h3 className="text-sm font-bold" style={{ color: 'var(--c-text-1)' }}>
+          {kpi.kpi_id.replace('kpi_', '')}. {kpi.kpi_name}
+        </h3>
+        <span className="text-xs ml-auto" style={{ color: 'var(--c-text-2)' }}>
+          หน่วย: {kpi.unit} | น้ำหนัก: {kpi.weight}
+        </span>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="data-table">
+          <thead>
+            <tr>
+              {/* Left section */}
+              <th className="text-left">สาขา</th>
+              <th className="text-right">เป้าหมาย (ค่า5)</th>
+              <th className="text-right">ผลงานจริง</th>
+              <th className="text-right">ต้องทำอีก</th>
+              <th className="text-center">% ผลงาน</th>
+              <th className="text-center">Rank</th>
+              {/* Right section — 5-level threshold diff */}
+              <th
+                className="text-center"
+                style={{ borderLeft: '2px solid var(--c-border)' }}
+              >
+                ค่า1
+              </th>
+              <th className="text-center">ค่า2</th>
+              <th className="text-center">ค่า3</th>
+              <th className="text-center">ค่า4</th>
+              <th className="text-center">ค่า5</th>
+              <th className="text-center">ระดับ</th>
+              <th className="text-right">คะแนน</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ranked.map((branch) => {
+              const d = branch.kpis[kpi.kpi_id] || { target: 0, actual: 0 }
+              const s = branch.scores[kpi.kpi_id] || {}
+              const remaining = d.target - d.actual
+              const percent = d.target > 0 ? (d.actual / d.target) * 100 : 0
+              const pColor = getPerformanceColor(percent)
+
+              return (
+                <tr key={branch.branch_name}>
+                  {/* Left section */}
+                  <td className="text-left font-medium whitespace-nowrap" style={{ color: 'var(--c-text-1)' }}>
+                    {branch.branch_name}
+                  </td>
+                  <td className="text-right font-mono">{formatNumber(d.target, kpi.unit)}</td>
+                  <td className="text-right font-mono font-semibold" style={{ color: 'var(--c-text-1)' }}>
+                    {formatNumber(d.actual, kpi.unit)}
+                  </td>
+                  <td className="text-right font-mono">
+                    {remaining > 0 ? (
+                      <span className="num-negative">{formatNumber(remaining, kpi.unit)}</span>
+                    ) : (
+                      <span className="num-positive">✓</span>
+                    )}
+                  </td>
+                  <td className="text-center">
+                    <div className="flex items-center gap-2 justify-center">
+                      <div className="progress-bar w-16">
+                        <div
+                          className="progress-bar-fill"
+                          style={{ width: `${Math.min(percent, 100)}%`, backgroundColor: pColor }}
+                        />
+                      </div>
+                      <span className="text-xs font-bold font-mono" style={{ color: pColor }}>
+                        {percent.toFixed(2)}%
+                      </span>
+                    </div>
+                  </td>
+                  <td className="text-center font-bold" style={{
+                    color: branch.kpiRank <= 3 ? 'var(--c-accent)' : 'var(--c-text-2)',
+                  }}>
+                    {branch.kpiRank}
+                  </td>
+
+                  {/* 5-Level Threshold Diff */}
+                  {LEVELS.map((n, idx) => {
+                    const thresh = s.thresholdValues?.[`score_${n}`] ?? 0
+                    const diff = d.actual - thresh
+                    const isPass = diff >= 0
+                    return (
+                      <td
+                        key={n}
+                        className="text-center font-mono text-xs"
+                        style={idx === 0 ? { borderLeft: '2px solid var(--c-border)' } : undefined}
+                      >
+                        <span style={{ color: isPass ? '#10b981' : '#f43f5e', fontWeight: 600 }}>
+                          {formatDiff(diff)}
+                        </span>
+                      </td>
+                    )
+                  })}
+
+                  <td className="text-center">
+                    <span
+                      className="inline-block px-2 py-0.5 rounded text-xs font-bold text-white"
+                      style={{ backgroundColor: getScoreLevelColor(s.level || 0) }}
+                    >
+                      {(s.level || 0).toFixed(2)}
+                    </span>
+                  </td>
+                  <td className="text-right font-mono font-bold" style={{
+                    color: getScoreLevelColor(s.level || 0),
+                  }}>
+                    {(s.score || 0).toFixed(2)}
+                  </td>
+                </tr>
+              )
+            })}
+
+            {/* Province Total Row */}
+            <tr style={{ backgroundColor: 'var(--c-surface-alt)', fontWeight: 700 }}>
+              <td className="text-left" style={{ color: 'var(--c-accent)' }}>สนจ.สุโขทัย</td>
+              <td className="text-right font-mono">{formatNumber(totals.target, kpi.unit)}</td>
+              <td className="text-right font-mono" style={{ color: 'var(--c-text-1)' }}>
+                {formatNumber(totals.actual, kpi.unit)}
+              </td>
+              <td className="text-right font-mono">
+                {totals.target - totals.actual > 0 ? (
+                  <span className="num-negative">{formatNumber(totals.target - totals.actual, kpi.unit)}</span>
+                ) : (
+                  <span className="num-positive">✓</span>
+                )}
+              </td>
+              <td className="text-center">
+                <span className="text-xs font-bold font-mono" style={{ color: getPerformanceColor(totalPercent) }}>
+                  {totalPercent.toFixed(2)}%
+                </span>
+              </td>
+              <td colSpan={8}></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+</file>
+
+<file path="src/features/kpi-dashboard/ProvinceOverview.jsx">
+import { useState, useEffect } from 'react'
+import KpiCard from './KpiCard'
+import KpiCardLarge from './KpiCardLarge'
+import KpiDetailSection from './KpiDetailSection'
+import RankingTable from './RankingTable'
+import HistoryChart from './HistoryChart'
+import {
+  loadKpiConfig, loadDefaultKpiConfig, loadBranchData, saveBranchData,
+  loadHistoryLog, computeAllBranchScores, computeProvinceSummary, rankBranches,
+} from '../../data/transformer'
+import { SAMPLE_BRANCH_DATA } from '../../data/sampleData'
+
+export default function ProvinceOverview() {
+  const [kpiConfig, setKpiConfig] = useState([])
+  const [branchData, setBranchData] = useState([])
+  const [historyLog, setHistoryLog] = useState([])
+
+  useEffect(() => {
+    (async () => {
+      let config = loadKpiConfig()
+      if (!config) config = await loadDefaultKpiConfig()
+      setKpiConfig(config)
+
+      let data = loadBranchData()
+      if (!data) {
+        data = SAMPLE_BRANCH_DATA
+        saveBranchData(data)
+      }
+      setBranchData(data)
+
+      setHistoryLog(loadHistoryLog())
+    })()
+  }, [])
+
+  const computedBranches = computeAllBranchScores(branchData, kpiConfig)
+  const rankedBranches = rankBranches(computedBranches)
+  const provinceSummary = computeProvinceSummary(branchData, kpiConfig)
+
+  const smallKpis = kpiConfig.filter((k) => k.display_size === 'small')
+  const largeKpis = kpiConfig.filter((k) => k.display_size === 'large')
+  const detailKpis = kpiConfig.filter((k) => k.display_size !== 'large')
+
+  return (
+    <div className="space-y-6">
+      {/* ────── Top Section: KPI Cards + Ranking ────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* KPI Cards — Left 3 cols */}
+        <div className="lg:col-span-3 space-y-6">
+          {smallKpis.length > 0 && (
+            <div>
+              <h2
+                className="text-xs font-bold uppercase tracking-wider mb-3 px-1"
+                style={{ color: 'var(--c-text-2)' }}
+              >
+                ภาพรวมตัวชี้วัดหลัก
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                {smallKpis.map((kpi) => (
+                  <KpiCard
+                    key={kpi.kpi_id}
+                    kpi={kpi}
+                    summary={provinceSummary[kpi.kpi_id]}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {largeKpis.length > 0 && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {largeKpis.map((kpi) => (
+                <KpiCardLarge
+                  key={kpi.kpi_id}
+                  kpi={kpi}
+                  summary={provinceSummary[kpi.kpi_id]}
+                  historyLog={historyLog}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Ranking Tables — Right 1 col */}
+        <div className="space-y-4">
+          <RankingTable
+            title="Ranking คะแนนรวม KPI — ระดับ สนจ."
+            data={rankedBranches.map((b) => ({
+              branch_name: b.branch_name,
+              value: b.overallPercent,
+            }))}
+            valueLabel="คะแนน"
+          />
+        </div>
+      </div>
+
+      {/* ────── History Chart ────── */}
+      {historyLog.length > 0 && (
+        <HistoryChart
+          historyLog={historyLog}
+          kpiId={kpiConfig[0]?.kpi_id}
+          title="แนวโน้มผลงานภาพรวมจังหวัด (รายเดือน)"
+          targetLine={100}
+        />
+      )}
+
+      {/* ────── Bottom Section: Detail per KPI ────── */}
+      <div className="space-y-6">
+        <h2 className="text-lg font-bold" style={{ color: 'var(--c-text-1)' }}>
+          รายละเอียด KPI รายตัว
+        </h2>
+        {detailKpis.map((kpi) => (
+          <KpiDetailSection
+            key={kpi.kpi_id}
+            kpi={kpi}
+            computedBranches={computedBranches}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+</file>
+
+<file path="src/features/kpi-dashboard/RankingTable.jsx">
+export default function RankingTable({ title, data, valueLabel = 'คะแนน' }) {
+  return (
+    <div className="card p-4">
+      <h3 className="text-sm font-bold mb-3" style={{ color: 'var(--c-text-1)' }}>
+        {title}
+      </h3>
+      <div className="overflow-auto max-h-[420px]">
+        <table className="data-table text-xs">
+          <thead>
+            <tr>
+              <th className="text-center w-12">#</th>
+              <th className="text-left">สาขา</th>
+              <th className="text-right">{valueLabel}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, i) => (
+              <tr key={i}>
+                <td className="text-center font-bold" style={{
+                  color: i < 3 ? 'var(--c-accent)' : 'var(--c-text-2)',
+                }}>
+                  {i + 1}
+                </td>
+                <td className="text-left" style={{ color: 'var(--c-text-1)' }}>
+                  {item.branch_name}
+                </td>
+                <td className="text-right font-mono font-bold" style={{
+                  color: item.value >= 80 ? '#10B981' : item.value >= 60 ? '#F59E0B' : '#EF4444',
+                }}>
+                  {item.value.toFixed(2)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+</file>
+
+<file path="src/hooks/useTheme.js">
+import { useState, useEffect, useCallback } from 'react'
+
+const STORAGE_KEY = 'baac-kpi-theme'
+const THEMES = ['dark', 'light', 'colorful']
+
+export function useTheme() {
+  const [theme, setThemeState] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    return THEMES.includes(saved) ? saved : 'dark'
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem(STORAGE_KEY, theme)
+  }, [theme])
+
+  const setTheme = useCallback((t) => {
+    if (THEMES.includes(t)) setThemeState(t)
+  }, [])
+
+  const cycleTheme = useCallback(() => {
+    setThemeState(prev => {
+      const idx = THEMES.indexOf(prev)
+      return THEMES[(idx + 1) % THEMES.length]
+    })
+  }, [])
+
+  return { theme, setTheme, cycleTheme, themes: THEMES }
+}
+</file>
+
+<file path="src/index.css">
+@import "tailwindcss";
+
+/* ============================================
+   BAAC KPI Dashboard — Theme System
+   ============================================ */
+
+@theme {
+  --font-sans: 'Sarabun', 'Noto Sans Thai', system-ui, sans-serif;
+  --color-surface: var(--c-surface);
+  --color-surface-alt: var(--c-surface-alt);
+  --color-bg: var(--c-bg);
+  --color-t1: var(--c-text-1);
+  --color-t2: var(--c-text-2);
+  --color-accent: var(--c-accent);
+  --color-accent-light: var(--c-accent-light);
+  --color-border: var(--c-border);
+  --color-danger: #EF4444;
+  --color-warning: #F59E0B;
+  --color-success: #10B981;
+  --color-info: #3B82F6;
+}
+
+/* ---------- Dark Theme — Cyber-Executive Glassmorphism ---------- */
+:root,
+[data-theme="dark"] {
+  --c-bg: #020617;
+  --c-surface: rgba(255, 255, 255, 0.05);
+  --c-surface-alt: rgba(255, 255, 255, 0.08);
+  --c-text-1: #f1f5f9;
+  --c-text-2: #94a3b8;
+  --c-accent: #34d399;
+  --c-accent-light: #6ee7b7;
+  --c-border: rgba(255, 255, 255, 0.1);
+  --c-shadow: 0 0 0 0 transparent;
+  --c-card-bg: rgba(255, 255, 255, 0.05);
+  --c-card-blur: blur(16px);
+}
+
+/* ---------- Light Theme — Minimalist Elegant ---------- */
+[data-theme="light"] {
+  --c-bg: #f8fafc;
+  --c-surface: #ffffff;
+  --c-surface-alt: #f1f5f9;
+  --c-text-1: #0f172a;
+  --c-text-2: #64748b;
+  --c-accent: #059669;
+  --c-accent-light: #10b981;
+  --c-border: #e2e8f0;
+  --c-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+  --c-card-bg: #ffffff;
+  --c-card-blur: none;
+}
+
+/* ---------- Colorful Theme (BAAC Green) ---------- */
+[data-theme="colorful"] {
+  --c-bg: #002B16;
+  --c-surface: #003D1F;
+  --c-surface-alt: #004D25;
+  --c-text-1: #F0FDF4;
+  --c-text-2: #A7F3D0;
+  --c-accent: #34D399;
+  --c-accent-light: #6EE7B7;
+  --c-border: rgba(16, 185, 129, 0.2);
+  --c-shadow: 0 0 0 0 transparent;
+  --c-card-bg: #003D1F;
+  --c-card-blur: none;
+}
+
+/* ---------- Base Styles ---------- */
+body {
+  margin: 0;
+  background-color: var(--c-bg);
+  color: var(--c-text-1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+[data-theme="dark"] body {
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(52, 211, 153, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(99, 102, 241, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 90%, rgba(16, 185, 129, 0.04) 0%, transparent 55%),
+    #020617;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+/* ---------- Card Styles (theme-aware) ---------- */
+.card {
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 0.75rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] .card {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] .card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.card-hover:hover {
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 1px var(--c-accent);
+}
+
+/* ---------- Button Styles ---------- */
+.btn-primary {
+  background-color: var(--c-accent);
+  color: #fff;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--c-surface-alt);
+  color: var(--c-text-1);
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: 1px solid var(--c-border);
+}
+.btn-secondary:hover {
+  border-color: var(--c-accent);
+}
+
+.btn-danger {
+  background-color: #EF4444;
+  color: #fff;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-danger:hover {
+  background-color: #DC2626;
+}
+
+/* ---------- Input Styles ---------- */
+.input-field {
+  background-color: var(--c-surface-alt);
+  color: var(--c-text-1);
+  border: 1px solid var(--c-border);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.input-field:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--c-accent) 25%, transparent);
+}
+.input-field::placeholder {
+  color: var(--c-text-2);
+  opacity: 0.6;
+}
+
+/* ---------- PIN Input ---------- */
+.pin-input {
+  width: 3.5rem;
+  height: 3.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  border: 2px solid var(--c-border);
+  background-color: var(--c-surface-alt);
+  color: var(--c-text-1);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.1s;
+  caret-color: transparent;
+}
+.pin-input:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-accent) 25%, transparent);
+  transform: scale(1.05);
+}
+
+/* ---------- Table Styles ---------- */
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.data-table th {
+  background-color: var(--c-surface-alt);
+  color: var(--c-text-2);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 0.75rem;
+  border-bottom: 1px solid var(--c-border);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 0.75rem 0.75rem;
+  border-bottom: 1px solid var(--c-border);
+  font-size: 0.8125rem;
+}
+.data-table tbody tr {
+  transition: background-color 0.15s;
+}
+.data-table tbody tr:nth-child(even) {
+  background-color: color-mix(in srgb, var(--c-surface-alt) 30%, transparent);
+}
+.data-table tbody tr:hover {
+  background-color: color-mix(in srgb, var(--c-accent) 8%, transparent);
+}
+
+/* ---------- Progress Bar ---------- */
+.progress-bar {
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--c-surface-alt);
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.6s ease;
+}
+
+/* ---------- Modal Overlay ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fadeIn 0.2s ease;
+}
+.modal-content {
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  max-width: 640px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+
+[data-theme="dark"] .modal-content {
+  background-color: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ---------- Number Formatting ---------- */
+.num-positive { color: #10B981; }
+.num-negative { color: #EF4444; }
+.num-warning  { color: #F59E0B; }
+
+/* ---------- Animations ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%, 45%, 75% { transform: translateX(-7px); }
+  30%, 60%, 90% { transform: translateX(7px); }
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes pinSuccess {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.pin-success {
+  animation: pinSuccess 0.3s ease;
+}
+</file>
+
+<file path="src/main.jsx">
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+</file>
+
+<file path="src/routes.jsx">
+import { LayoutDashboard, Settings, Users } from 'lucide-react'
+import ProvinceOverview from './features/kpi-dashboard/ProvinceOverview'
+import BranchOverview from './features/branch-detail/BranchOverview'
+import AdminSettings from './features/admin-config/AdminSettings'
+
+const routes = [
+  {
+    path: '/',
+    label: 'ภาพรวมจังหวัด',
+    icon: LayoutDashboard,
+    element: <ProvinceOverview />,
+    role: 'user',
+  },
+  {
+    path: '/branch',
+    label: 'ภาพรวมสาขา',
+    icon: Users,
+    element: <BranchOverview />,
+    role: 'user',
+  },
+  {
+    path: '/admin',
+    label: 'Admin',
+    icon: Settings,
+    element: <AdminSettings />,
+    role: 'admin',
+  },
+]
+
+export default routes
+</file>
+
+<file path="vite.config.js">
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+})
+</file>
+
+</files>

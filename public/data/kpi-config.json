@@ -1,0 +1,162 @@
+[
+  {
+    "kpi_id": "kpi_01",
+    "kpi_name": "ขึ้นทะเบียนลูกค้าเกษตรกรรายใหม่",
+    "unit": "ราย",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "ลูกค้า",
+    "display_size": "small",
+    "thresholds": { "score_1": 81, "score_2": 86, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_02",
+    "kpi_name": "สินเชื่อเงินกู้ระยะสั้น",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_03",
+    "kpi_name": "สินเชื่อเงินกู้ระยะปานกลาง",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_04",
+    "kpi_name": "สินเชื่อเงินกู้ระยะยาว",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_05",
+    "kpi_name": "เงินรับฝาก",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "เงินฝาก",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_06",
+    "kpi_name": "BAAC Mobile",
+    "unit": "ราย",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "ดิจิทัล",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_07",
+    "kpi_name": "อัตรารับชำระหนี้",
+    "unit": "%",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "หนี้สิน",
+    "display_size": "large",
+    "thresholds": { "score_1": 90, "score_2": 93, "score_3": 95, "score_4": 97, "score_5": 98.5 }
+  },
+  {
+    "kpi_id": "kpi_08",
+    "kpi_name": "NPL (หนี้ไม่ก่อให้เกิดรายได้)",
+    "unit": "%",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "หนี้สิน",
+    "display_size": "large",
+    "thresholds": { "score_1": 15, "score_2": 12, "score_3": 10, "score_4": 8, "score_5": 5 }
+  },
+  {
+    "kpi_id": "kpi_09",
+    "kpi_name": "สินเชื่อ SML",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_10",
+    "kpi_name": "ประกันภัยพืชผล",
+    "unit": "ราย",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "ลูกค้า",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_11",
+    "kpi_name": "บัตรเดบิต",
+    "unit": "ราย",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "ดิจิทัล",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_12",
+    "kpi_name": "สินเชื่อรายบุคคล",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_13",
+    "kpi_name": "ธุรกรรม ATM/CDM",
+    "unit": "ราย",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "ดิจิทัล",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_14",
+    "kpi_name": "สินเชื่อนโยบายรัฐ",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_15",
+    "kpi_name": "เงินรับฝากออมทรัพย์ทวีโชค",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "เงินฝาก",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  },
+  {
+    "kpi_id": "kpi_16",
+    "kpi_name": "สินเชื่อ A-Cash Card",
+    "unit": "ล้านบาท",
+    "weight": 1.0,
+    "max_score": 5,
+    "category": "สินเชื่อ",
+    "display_size": "small",
+    "thresholds": { "score_1": 80, "score_2": 85, "score_3": 90, "score_4": 95, "score_5": 100 }
+  }
+]

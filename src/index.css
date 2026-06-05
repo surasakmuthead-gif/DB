@@ -1,0 +1,316 @@
+@import "tailwindcss";
+
+/* ============================================
+   BAAC KPI Dashboard — Theme System
+   ============================================ */
+
+@theme {
+  --font-sans: 'Sarabun', 'Noto Sans Thai', system-ui, sans-serif;
+  --color-surface: var(--c-surface);
+  --color-surface-alt: var(--c-surface-alt);
+  --color-bg: var(--c-bg);
+  --color-t1: var(--c-text-1);
+  --color-t2: var(--c-text-2);
+  --color-accent: var(--c-accent);
+  --color-accent-light: var(--c-accent-light);
+  --color-border: var(--c-border);
+  --color-danger: #EF4444;
+  --color-warning: #F59E0B;
+  --color-success: #10B981;
+  --color-info: #3B82F6;
+}
+
+/* ---------- Dark Theme — Cyber-Executive Glassmorphism ---------- */
+:root,
+[data-theme="dark"] {
+  --c-bg: #020617;
+  --c-surface: rgba(255, 255, 255, 0.05);
+  --c-surface-alt: rgba(255, 255, 255, 0.08);
+  --c-text-1: #f1f5f9;
+  --c-text-2: #94a3b8;
+  --c-accent: #34d399;
+  --c-accent-light: #6ee7b7;
+  --c-border: rgba(255, 255, 255, 0.1);
+  --c-shadow: 0 0 0 0 transparent;
+  --c-card-bg: rgba(255, 255, 255, 0.05);
+  --c-card-blur: blur(16px);
+}
+
+/* ---------- Light Theme — Minimalist Elegant ---------- */
+[data-theme="light"] {
+  --c-bg: #f8fafc;
+  --c-surface: #ffffff;
+  --c-surface-alt: #f1f5f9;
+  --c-text-1: #0f172a;
+  --c-text-2: #64748b;
+  --c-accent: #059669;
+  --c-accent-light: #10b981;
+  --c-border: #e2e8f0;
+  --c-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+  --c-card-bg: #ffffff;
+  --c-card-blur: none;
+}
+
+/* ---------- Colorful Theme (BAAC Green) ---------- */
+[data-theme="colorful"] {
+  --c-bg: #002B16;
+  --c-surface: #003D1F;
+  --c-surface-alt: #004D25;
+  --c-text-1: #F0FDF4;
+  --c-text-2: #A7F3D0;
+  --c-accent: #34D399;
+  --c-accent-light: #6EE7B7;
+  --c-border: rgba(16, 185, 129, 0.2);
+  --c-shadow: 0 0 0 0 transparent;
+  --c-card-bg: #003D1F;
+  --c-card-blur: none;
+}
+
+/* ---------- Base Styles ---------- */
+body {
+  margin: 0;
+  background-color: var(--c-bg);
+  color: var(--c-text-1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+[data-theme="dark"] body {
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(52, 211, 153, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(99, 102, 241, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 90%, rgba(16, 185, 129, 0.04) 0%, transparent 55%),
+    #020617;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+/* ---------- Card Styles (theme-aware) ---------- */
+.card {
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 0.75rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] .card {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] .card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.card-hover:hover {
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 1px var(--c-accent);
+}
+
+/* ---------- Button Styles ---------- */
+.btn-primary {
+  background-color: var(--c-accent);
+  color: #fff;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--c-surface-alt);
+  color: var(--c-text-1);
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: 1px solid var(--c-border);
+}
+.btn-secondary:hover {
+  border-color: var(--c-accent);
+}
+
+.btn-danger {
+  background-color: #EF4444;
+  color: #fff;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-danger:hover {
+  background-color: #DC2626;
+}
+
+/* ---------- Input Styles ---------- */
+.input-field {
+  background-color: var(--c-surface-alt);
+  color: var(--c-text-1);
+  border: 1px solid var(--c-border);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.input-field:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--c-accent) 25%, transparent);
+}
+.input-field::placeholder {
+  color: var(--c-text-2);
+  opacity: 0.6;
+}
+
+/* ---------- PIN Input ---------- */
+.pin-input {
+  width: 3.5rem;
+  height: 3.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  border: 2px solid var(--c-border);
+  background-color: var(--c-surface-alt);
+  color: var(--c-text-1);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.1s;
+  caret-color: transparent;
+}
+.pin-input:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-accent) 25%, transparent);
+  transform: scale(1.05);
+}
+
+/* ---------- Table Styles ---------- */
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.data-table th {
+  background-color: var(--c-surface-alt);
+  color: var(--c-text-2);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 0.75rem;
+  border-bottom: 1px solid var(--c-border);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 0.75rem 0.75rem;
+  border-bottom: 1px solid var(--c-border);
+  font-size: 0.8125rem;
+}
+.data-table tbody tr {
+  transition: background-color 0.15s;
+}
+.data-table tbody tr:nth-child(even) {
+  background-color: color-mix(in srgb, var(--c-surface-alt) 30%, transparent);
+}
+.data-table tbody tr:hover {
+  background-color: color-mix(in srgb, var(--c-accent) 8%, transparent);
+}
+
+/* ---------- Progress Bar ---------- */
+.progress-bar {
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--c-surface-alt);
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.6s ease;
+}
+
+/* ---------- Modal Overlay ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fadeIn 0.2s ease;
+}
+.modal-content {
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  max-width: 640px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+
+[data-theme="dark"] .modal-content {
+  background-color: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ---------- Number Formatting ---------- */
+.num-positive { color: #10B981; }
+.num-negative { color: #EF4444; }
+.num-warning  { color: #F59E0B; }
+
+/* ---------- Animations ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%, 45%, 75% { transform: translateX(-7px); }
+  30%, 60%, 90% { transform: translateX(7px); }
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes pinSuccess {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.pin-success {
+  animation: pinSuccess 0.3s ease;
+}
