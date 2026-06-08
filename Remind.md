@@ -1,7 +1,26 @@
 # 📋 BAAC KPI Dashboard — Feature Backlog & Reminder
 > **โปรเจกต์:** ธ.ก.ส. สนจ.สุโขทัย | 14 สาขา  
 > **Stack:** React 18 + Vite + Tailwind v4 + Recharts + SheetJS  
-> **อัปเดตล่าสุด:** 2026-06-06 *(เพิ่ม 3 รายการ — จากคำสั่ง "จำนะ")*
+> **อัปเดตล่าสุด:** 2026-06-06 *(เพิ่ม Git reminder rule)*
+
+---
+
+## 🔔 [STANDING RULES] — กฎแจ้งเตือนประจำ
+
+> กฎเหล่านี้ให้ Agent ตรวจและแจ้งเตือน **ทุกครั้ง** ที่เงื่อนไขตรง
+
+| # | เงื่อนไขแจ้งเตือน | สิ่งที่ต้องทำ |
+|---|------------------|--------------|
+| R1 | **Plan usage ใกล้หมด (5-hour limit)** | แจ้งเตือนให้ `git add . && git commit && git push` ก่อน session หมด |
+| R2 | **มีการแก้ไขโค้ดหลายไฟล์ในเซสชัน** | เตือนให้ push ขึ้น GitHub ก่อนปิด |
+| R3 | **ก่อน Deploy to Cloud** | ตรวจให้แน่ใจว่า push ล่าสุดขึ้น GitHub แล้ว + ตรวจ build ไม่มี error |
+
+### 📌 Git Remote Info
+```
+Repository : https://github.com/surasakmuthead-gif/DB.git
+Branch     : main
+Command    : git add . && git commit -m "..." && git push
+```
 
 ---
 
@@ -47,7 +66,7 @@
 ## 📥 [BACKLOG] — รายการฟีเจอร์ที่รอลงมือทำ
 
 ### 🛠️ Bug Fix & Quick Win *(จำนะ — 2026-06-06)*
-- [ ] **[HIGH]** หน้า Admin — ซ่อนกล่อง "งวด" (period selector) ออกจาก Upload Tab
+- [x] **[HIGH]** หน้า Admin — ซ่อนกล่อง "งวด" (period selector) ออกจาก Upload Tab *(เสร็จ 2026-06-06)*
   - ปัจจุบัน: แสดง `<select>` ให้เลือกงวดด้วยตัวเอง
   - เป้าหมาย: ระบบ detect งวดอัตโนมัติจากชื่อไฟล์อยู่แล้ว (`extractFullDateFromFilename`) — **ไม่ต้องแสดง UI นี้**
   - ไฟล์: `src/features/admin-config/AdminSettings.jsx` → หา `<select>` งวด แล้ว remove หรือ comment ออก
@@ -80,6 +99,13 @@
   - กำหนด threshold สำหรับ alert ใน Admin
   - 🔔 *เงื่อนไขแจ้งเตือน: เมื่อ kpiTargets รายสาขาถูกตั้งค่าครบ*
 
+### ☁️ Cloud Deployment *(จำนะ)*
+- [ ] **[HIGH]** Deploy แอพขึ้น Cloud ให้เข้าถึงได้จากอินเทอร์เน็ต
+  - **แนะนำ: Vercel** (ฟรี, เชื่อม GitHub โดยตรง, deploy อัตโนมัติทุกครั้งที่ push)
+  - ขั้นตอน: ไป [vercel.com](https://vercel.com) → Import GitHub repo → Deploy (จบใน 2 นาที)
+  - ทางเลือก: Netlify / GitHub Pages
+  - 🔔 *เงื่อนไข: ต้อง push โค้ดล่าสุดขึ้น GitHub ก่อน + ตรวจ `npm run build` ไม่มี error*
+
 ### 🗄️ Data Management
 - [ ] **[MEDIUM]** ระบบ Backup/Restore localStorage
   - Export ข้อมูลทั้งหมด (config + data + targets + logs) เป็น JSON file
@@ -101,6 +127,15 @@
 - [ ] **[LOW]** Dark Mode ปรับปรุง contrast ของ progress bar และ badge
 - [ ] **[LOW]** Responsive Mobile — ปรับ KPI Cards ให้ scroll horizontal บน mobile
 - [ ] **[LOW]** Loading Skeleton สำหรับหน้าที่ fetch data ช้า
+
+### ☁️ Backend & Data Persistence *(จำนะ — อนาคต)*
+- [ ] **[MEDIUM]** เพิ่ม Backend เพื่อให้ข้อมูล sync ข้ามเครื่อง / หลายคนใช้ร่วมกันได้
+  - **ปัญหาปัจจุบัน:** ข้อมูลทั้งหมดอยู่ใน `localStorage` ของ browser — ใช้ได้แค่เครื่องเดียว
+  - **Option A — Supabase** *(แนะนำ)*: PostgreSQL ฟรี + REST API + Auth ในตัว เชื่อม Vercel ได้ตรง
+  - **Option B — Google Sheets + Apps Script**: ง่ายที่สุด ฟรี 100% เหมาะถ้าไม่อยากตั้ง server
+  - **Option C — Firebase**: Firestore (NoSQL) + Google Auth พร้อม
+  - สิ่งที่ต้อง migrate: `kpiConfig`, `branchData`, `kpiTargets`, `historyLog`, `dailyLog`
+  - 🔔 *เงื่อนไขแจ้งเตือน: **เมื่อทุกฟีเจอร์ใช้งานถูกต้อง ~99% แล้วเท่านั้น** — ห้ามทำก่อน*
 
 ### 🔒 Security & Auth
 - [ ] **[LOW]** เปลี่ยน PIN Gate เป็นระบบ Login จริง (username/password)

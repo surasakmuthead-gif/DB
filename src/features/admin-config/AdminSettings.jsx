@@ -315,34 +315,6 @@ export default function AdminSettings() {
                 ดาวน์โหลด Template
               </button>
 
-              {/* Divider */}
-              <span style={{ color: 'var(--c-border)' }}>│</span>
-
-              {/* Optional period override */}
-              <div className="flex items-center gap-2">
-                <Calendar size={14} style={{ color: 'var(--c-text-2)' }} />
-                <select
-                  className="input-field text-sm w-auto"
-                  value={selectedPeriod}
-                  onChange={(e) => {
-                    setSelectedPeriod(e.target.value)
-                    if (e.target.value) {
-                      const [y, m] = e.target.value.split('-')
-                      const thaiMonths = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']
-                      const thaiYear = parseInt(y) > 2500 ? y : parseInt(y) + 543
-                      setPeriodLabel(`${thaiMonths[parseInt(m) - 1]} ${thaiYear}`)
-                    }
-                  }}
-                >
-                  <option value="">งวด (Auto จากชื่อไฟล์)</option>
-                  {Array.from({ length: 12 }, (_, i) => {
-                    const m = String(i + 1).padStart(2, '0')
-                    const thaiMonths = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']
-                    return <option key={m} value={`2026-${m}`}>{thaiMonths[i]} 2569</option>
-                  })}
-                </select>
-              </div>
-
               {/* Upload */}
               <label className="btn-primary flex items-center gap-2 text-sm cursor-pointer">
                 <Upload size={15} />
