@@ -72,18 +72,12 @@ Command    : git add . && git commit -m "..." && git push
   - ไฟล์: `src/features/admin-config/AdminSettings.jsx` → หา `<select>` งวด แล้ว remove หรือ comment ออก
   - 💡 คง `detectedDate` badge แสดงผลลัพธ์ที่ detect ได้ไว้เหมือนเดิม
 
-- [ ] **[HIGH]** แก้ไข Feature Forecast *(รอรายละเอียดเพิ่มเติมจากผู้ใช้)*
-  - ปัจจุบัน: `ForecastPanel.jsx` + `DailyTrendChart.jsx` + `computeAllForecasts()` ใน transformer.js
-  - 🔔 *หมายเหตุ: ยังไม่ระบุว่าแก้จุดไหน — รอผู้ใช้อธิบายรายละเอียดก่อนลงมือ*
+- [ ] **[HIGH → v2.0]** แก้ไข Feature Forecast
+  - *เลื่อนไปทำใน v2.0*
 
-### 🎨 UI/UX Enhancement
-
-### 👤 หน้ารายบุคคล (Individual Staff KPI)
-- [ ] **[HIGH]** สร้างหน้า `/staff` แสดงผลงาน KPI ของพนักงานแต่ละคนในสาขา
-  - โครงสร้างข้อมูล: `staffData[branchName][staffId] = { name, kpis: { kpiId: actual } }`
-  - Import Excel รายคน หรือ manual input
-  - Ranking พนักงานภายในสาขา
-  - 🔔 *เงื่อนไขแจ้งเตือน: เมื่อหน้า BranchOverview ใช้งานได้เสถียรแล้ว (ทำเสร็จแล้ว)*
+### 👤 หน้ารายบุคคล (Individual Staff KPI) — ย้ายไป v2.0
+- [ ] **[HIGH → v2.0]** สร้างหน้า `/staff` แสดงผลงาน KPI ของพนักงานแต่ละคนในสาขา
+  - *เลื่อนไปทำใน v2.0 กับ RBAC + backend*
 
 ### 📤 Export & Report
 - [ ] **[MEDIUM]** Export PDF Report รายงาน KPI สรุปรายเดือน
@@ -115,15 +109,9 @@ Command    : git add . && git commit -m "..." && git push
 - [x] **[LOW]** ล้างข้อมูล Daily Log เก่า *(เสร็จ 2026-06-09)*
   - ปุ่ม "ล้าง Daily Log" ใน Admin > อัปโหลดข้อมูล พร้อมแสดงจำนวนวัน + confirm dialog
 
-### 🎨 UI/UX Enhancement
-- [ ] **[HIGH]** ปรับระบบ Typography ทั้งแอป *(จำนะ — 2026-06-06)*
-  - **หัวข้อหลัก (H1/Page Title):** ขนาด + weight + สี ให้โดดเด่น
-  - **หัวข้อรอง (H2/Section):** ขนาดและ tracking ที่เหมาะสม
-  - **ตัวเด่น (Highlight/Value):** ตัวเลข KPI, คะแนน, badge — ชัดเจน อ่านง่าย
-  - **ตัวรอง (Secondary/Label):** ชื่อ KPI, หน่วย, คำอธิบาย — ไม่แย่งสายตา
-  - ควรกำหนด font-size scale ใน `index.css` ให้เป็น system เดียวกันทั้งแอป
-  - ไฟล์ที่ต้องแก้: `src/index.css` (CSS vars), KPI Cards, Tables, Navbar, Admin
-  - 💡 พิจารณาใช้ `clamp()` สำหรับ responsive font sizes
+### 🎨 UI/UX Enhancement — ย้ายไป v2.0
+- [ ] **[HIGH → v2.0]** ปรับระบบ Typography ทั้งแอป
+  - *เลื่อนไปออกแบบตั้งแต่ต้นใน v2.0*
 - [ ] **[LOW]** Dark Mode ปรับปรุง contrast ของ progress bar และ badge
 - [ ] **[LOW]** Responsive Mobile — ปรับ KPI Cards ให้ scroll horizontal บน mobile
 - [ ] **[LOW]** Loading Skeleton สำหรับหน้าที่ fetch data ช้า
