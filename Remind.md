@@ -1,7 +1,52 @@
 # 📋 BAAC KPI Dashboard — Feature Backlog & Reminder
 > **โปรเจกต์:** ธ.ก.ส. สนจ.สุโขทัย | 14 สาขา  
 > **Stack:** React 18 + Vite + Tailwind v4 + Recharts + SheetJS  
-> **อัปเดตล่าสุด:** 2026-06-06 *(เพิ่ม Git reminder rule)*
+> **อัปเดตล่าสุด:** 2026-06-09 *(Session สิ้นสุด — อ่านส่วน NEXT SESSION ก่อนทุกครั้ง)*
+
+---
+
+## 🟥 [NEXT SESSION — อ่านก่อนทำอะไรทั้งนั้น]
+
+> **สถานะ ณ วันที่ 2026-06-09 (ก่อนปิด session)**
+
+### ✅ ทำเสร็จแล้ววันนี้
+- Step B (Regional Overview) เสร็จสมบูรณ์ + push GitHub แล้ว
+- ตัดสินใจร่วมกัน: **ยุบ V1 เข้า V2** — ใช้แค่ `baac-kpi-v2` เพียงโปรเจกต์เดียว
+- แนวทางที่เห็นด้วยแล้ว: ย้าย feature V1 ทั้งหมด + ข้อมูลเข้า Supabase (ไม่ใช้ localStorage)
+- โครงสร้าง 3 ระดับที่ตกลงกันไว้:
+  ```
+  /dashboard                              ← ภาพฝ่ายภาค (9 จังหวัด) ✅ done
+  /dashboard/province/[id]               ← ภาพรวมจังหวัด (Step C — ทำต่อ)
+  /dashboard/province/[id]/branch/[id]   ← ภาพรวมสาขา (Step D)
+  /upload                                ← Upload Excel → Supabase (Step E)
+  /admin                                 ← จัดการ KPI config + เกณฑ์ (Step F)
+  ```
+
+### 🔲 งานที่ยังค้างอยู่ (ต่อพรุ่งนี้)
+1. **Step C** — Province Dashboard: KPI Cards + Branch Ranking ดึงจาก Supabase
+2. **Step D** — Branch Detail: ตาราง KPI รายสาขา + Charts
+3. **Step E** — Upload Excel → เขียนเข้า `branch_kpi_data` ใน Supabase
+4. **Step F** — Admin: จัดการ KPI config + Threshold (v1-v5) ใน Supabase
+5. ลบ / archive V1 (`baac-kpi-dashboard`) หลังย้าย feature ครบ
+
+### 📦 ข้อมูล Demo ที่สร้างไว้
+- `supabase/migrations/004_seed_demo_data.sql` — 27 สาขา (3/จังหวัด), KPI config 5 ตัว, thresholds, branch_kpi_data วันที่ 2026-06-09
+- **ยังไม่ได้รัน** ใน Supabase — ต้องไป Supabase Dashboard > SQL Editor แล้ว paste รัน
+
+### 🔧 Dev Environment
+```
+Directory : D:\Claude\ProJect\DB\baac-kpi-v2\
+Start     : npm run dev   (port 3001 หรือ 3000)
+Login     : admin01@baac.or.th / [password ที่ตั้งไว้]
+Supabase  : jcwagvpcpfysbsqotvaz.supabase.co
+```
+
+### 💬 วิธีเริ่ม session ใหม่ที่ PC ทำงาน
+1. `git clone https://github.com/surasakmuthead-gif/baac-kpi-v2.git`
+2. `cd baac-kpi-v2 && npm install`
+3. สร้างไฟล์ `.env.local` ใส่ Supabase keys
+4. `npm run dev`
+5. บอก Claude: **"อ่าน Remind.md แล้วทำ Step C ต่อ"**
 
 ---
 
@@ -17,9 +62,14 @@
 
 ### 📌 Git Remote Info
 ```
-Repository : https://github.com/surasakmuthead-gif/DB.git
-Branch     : main
-Command    : git add . && git commit -m "..." && git push
+[v1] Repository : https://github.com/surasakmuthead-gif/DB.git
+     Branch     : main
+     Command    : git add . && git commit -m "..." && git push
+
+[v2] Repository : https://github.com/surasakmuthead-gif/baac-kpi-v2.git
+     Branch     : main
+     Directory  : D:\Claude\ProJect\DB\baac-kpi-v2\
+     Command    : git add . && git commit -m "..." && git push
 ```
 
 ---
@@ -145,11 +195,44 @@ Command    : git add . && git commit -m "..." && git push
 
 ## 🚀 [V2.0 PLANNING] — BAAC KPI Dashboard System v2.0
 
-> **สถาปัตยกรรม:** Next.js + Tailwind + Supabase + Recharts  
+> **สถาปัตยกรรม:** Next.js 16 App Router + TypeScript + Tailwind CSS + Supabase + Recharts  
 > **ขอบเขต:** 9 จังหวัด (ฝ่ายภาค) × 90+ สาขา (ประมาณ)  
-> **ความต่าง v1:** Multi-province, Backend DB, RBAC, Date Alignment, Audit Trail
+> **ความต่าง v1:** Multi-province, Backend DB, RBAC, Date Alignment, Audit Trail  
+> **GitHub:** https://github.com/surasakmuthead-gif/baac-kpi-v2  
+> **Supabase Project:** jcwagvpcpfysbsqotvaz.supabase.co
 
-### 📍 ข้อเด่น v2.0
+---
+
+### 🗺️ V2.0 PROGRESS TRACKER *(อัปเดต 2026-06-09)*
+
+| Step | งาน | สถานะ | หมายเหตุ |
+|------|-----|--------|---------|
+| **A1** | Next.js 16 scaffold + TypeScript + Tailwind CSS | ✅ เสร็จ | `baac-kpi-v2/` |
+| **A2** | Supabase project setup + `.env.local` | ✅ เสร็จ | `jcwagvpcpfysbsqotvaz` |
+| **A3** | DB Schema 8 tables (migrations/001) | ✅ เสร็จ | provinces seeded (9 จังหวัด) |
+| **A4** | RLS Policies — public read + auth write (migrations/002) | ✅ เสร็จ | |
+| **A5** | Auth RBAC — user_profiles + trigger + policies (migrations/003) | ✅ เสร็จ | handle_new_user trigger |
+| **A6** | TypeScript types (`src/types/index.ts`) | ✅ เสร็จ | Province, Branch, KpiConfig ฯลฯ |
+| **A7** | Scoring logic (`src/lib/scoring.ts`) | ✅ เสร็จ | computeKpiScore, findAlignedDate, getEffectiveThreshold |
+| **A8** | Supabase client/server/middleware helpers | ✅ เสร็จ | SSR cookie handling |
+| **A9** | Next.js middleware + protected routes | ✅ เสร็จ | redirect /login ถ้าไม่ได้ login |
+| **A10** | Auth helper functions (`src/lib/auth.ts`) | ✅ เสร็จ | canUpload, isAdmin, canAccessProvince |
+| **A11** | Login page + server actions | ✅ เสร็จ | dark theme, emerald |
+| **A12** | Super Admin user created | ✅ เสร็จ | admin01@baac.or.th |
+| **A13** | Push to GitHub | ✅ เสร็จ | main branch |
+| | | | |
+| **B** | **Regional Overview** (9 จังหวัด + Date Alignment) | ✅ เสร็จ | Navbar + 9 ProvinceCards + Alignment Banner |
+| **C** | **Province Dashboard** (Dropdown เลือกจังหวัด) | 🔲 รอทำ | หลัง B |
+| **D** | **Individual Performance Tab** (Staff Leaderboard) | 🔲 รอทำ | หลัง RBAC |
+| **E** | **Data Correction UI** (Manual edit + Re-upload) | 🔲 รอทำ | หลัง Audit Trail |
+| **F** | **Effective Date Logic** (เกณฑ์เปลี่ยนตามช่วงเวลา) | 🔲 รอทำ | CRITICAL — ห้าม Recalc ย้อนหลัง |
+| **G** | **System Changelog Timeline** | 🔲 รอทำ | NICE-TO-HAVE |
+
+**ความคืบหน้า: Step A+B เสร็จ (Infrastructure + Auth + Regional Overview) → ถัดไปคือ Step C**
+
+---
+
+### 📍 ข้อเด่น v2.0 *(เป้าหมาย)*
 - ✅ **Regional Overview** (9 จังหวัด + Date Alignment Logic)
 - ✅ **Supabase PostgreSQL** (Multi-user, Time-series storage)
 - ✅ **RBAC:** Super Admin / Province Admin / Viewer
@@ -162,32 +245,32 @@ Command    : git add . && git commit -m "..." && git push
 
 ### 🔴 [CRITICAL] — งานห้ามทำผิด (ต้องแม่นยำ)
 
-| # | งาน | หมายเหตุ |
-|---|-----|---------|
-| 1 | **Regional Overview + Date Alignment** | ต้อง "ทุกจังหวัดส่งครบ" วันเดียวกันเท่านั้น ไม่เช่นนั้นใช้วันเก่า |
-| 2 | **Supabase Backend + Tables** | Core infrastructure — Key-value flexible schema |
-| 3 | **Effective Date Logic** | เกณฑ์เปลี่ยน → ต้องใช้เกณฑ์ ณ วันที่ของข้อมูล ห้าม Recalc ทั้งหมด |
-| 4 | **RBAC System** | Super Admin ได้ทั้งหมด, Province Admin เฉพาะตัวเอง, Viewer ดูได้อย่างเดียว |
-| 5 | **Correction Audit Trail** | บังคับบันทึก "เหตุผล" + ผู้แก้ไข ทุกครั้ง |
+| # | งาน | สถานะ | หมายเหตุ |
+|---|-----|--------|---------|
+| 1 | **Supabase Backend + Tables** | ✅ เสร็จ | 8 tables, RLS, RBAC |
+| 2 | **RBAC System** | ✅ เสร็จ | super_admin / province_admin / viewer |
+| 3 | **Regional Overview + Date Alignment** | ✅ เสร็จ (Step B) | 9 ProvinceCards + Alignment Logic |
+| 4 | **Effective Date Logic** | 🔲 รอทำ (Step F) | เกณฑ์เปลี่ยน → ใช้เกณฑ์ ณ วันที่ข้อมูล |
+| 5 | **Correction Audit Trail** | 🔲 รอทำ (Step E) | บังคับบันทึก "เหตุผล" + ผู้แก้ไข |
 
 ---
 
 ### 🟡 [IMPORTANT] — งานต้องทำเพื่อให้ครบชุด
 
-| # | งาน | ขนาด | ลำดับทำ |
+| # | งาน | ขนาด | สถานะ |
 |---|-----|------|--------|
-| 6 | Province Dashboard (Dropdown เลือกจังหวัด) | 🟢 Small | หลัง Supabase |
-| 7 | Individual Performance Tab (Staff Leaderboard) | 🟡 Medium | หลัง RBAC |
-| 8 | Data Correction UI (Manual edit + Re-upload) | 🟡 Medium | หลัง Audit Trail |
-| 9 | Audit Trail Log (correction_audit_log table) | 🟡 Medium | หลัง Schema |
+| 6 | Province Dashboard (Dropdown เลือกจังหวัด) | 🟢 Small | 🔲 รอทำ (Step C) |
+| 7 | Individual Performance Tab (Staff Leaderboard) | 🟡 Medium | 🔲 รอทำ (Step D) |
+| 8 | Data Correction UI (Manual edit + Re-upload) | 🟡 Medium | 🔲 รอทำ (Step E) |
+| 9 | Audit Trail Log (correction_audit_log table) | 🟡 Medium | 🔲 รอทำ (Step E) |
 
 ---
 
 ### 🟢 [NICE-TO-HAVE] — งานช่วยเพิ่มประสบการณ์
 
-| # | งาน | หมายเหตุ |
-|---|-----|---------|
-| 10 | System Changelog Timeline (เวอร์ชัน + Release notes) | Admin UI สำหรับ publish ข้อความประกาศ |
+| # | งาน | สถานะ | หมายเหตุ |
+|---|-----|--------|---------|
+| 10 | System Changelog Timeline (เวอร์ชัน + Release notes) | 🔲 รอทำ (Step G) | Admin UI สำหรับ publish |
 
 ---
 
