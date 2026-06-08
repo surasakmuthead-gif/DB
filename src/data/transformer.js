@@ -405,6 +405,10 @@ export function saveDailyLog(log) {
   localStorage.setItem(STORAGE_KEYS.DAILY_LOG, JSON.stringify(log))
 }
 
+export function clearDailyLog() {
+  localStorage.removeItem(STORAGE_KEYS.DAILY_LOG)
+}
+
 /**
  * บันทึก snapshot รายวัน — เก็บ actuals (ผลงานจริง) ของแต่ละสาขา×KPI
  * ถ้าวันเดิมมีแล้วจะ Overwrite, วันใหม่จะ append แล้ว sort
@@ -646,4 +650,47 @@ export function getEndOfYear(dateStr) {
 /** วันนี้ในรูปแบบ YYYY-MM-DD */
 export function getTodayStr() {
   return new Date().toISOString().split('T')[0]
+}
+
+// ═══════════════════════════════════════════════════════════
+// ─── Export KPI Summary Excel ───
+// สร้าง Excel สรุปคะแนน KPI รายสาขา 2 sheet:
+//   Sheet 1: ผลงานจริง (actual values) พร้อมอันดับ
+//   Sheet 2: ระดับคะแนน (level 1–5) พร้อมคะแนนรวม
+// ═══════════════════════════════════════════════════════════
+
+export function exportKpiSummaryExcel(rankedBranches, kpiConfig) {
+  const kpiHeaders = kpiConfig.map((k) => `${k.kpi_id.replace('kpi_', '')}. ${k.kpi_name}`)
+
+  // Sheet 1: ผลงานจริง
+  const headers1 = ['อันดับ', 'สาขา', ...kpiHeaders, 'คะแนนรวม', '% ทำได้']
+  const rows1 = rankedBranches.map((b) => [
+    b.rank,
+    b.branch_name,
+    ...kpiConfig.map((k) => b.scores[k.kpi_id]?.actual ?? 0),
+    parseFloat(b.totalScore.toFixed(2)),
+    parseFloat(b.overallPercent.toFixed(1)),
+  ])
+
+  // Sheet 2: ระดับคะแนน
+  const headers2 = ['อันดับ', 'สาขา', ...kpiHeaders, 'คะแนนรวม']
+  const rows2 = rankedBranches.map((b) => [
+    b.rank,
+    b.branch_name,
+    ...kpiConfig.map((k) => b.scores[k.kpi_id]?.level ?? 0),
+    parseFloat(b.totalScore.toFixed(2)),
+  ])
+
+  const colWidths = [{ wch: 8 }, { wch: 22 }, ...kpiConfig.map(() => ({ wch: 16 })), { wch: 12 }, { wch: 10 }]
+
+  const ws1 = XLSX.utils.aoa_to_sheet([headers1, ...rows1])
+  ws1['!cols'] = colWidths
+  const ws2 = XLSX.utils.aoa_to_sheet([headers2, ...rows2])
+  ws2['!cols'] = colWidths
+
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, ws1, 'ผลงานจริง (Actual)')
+  XLSX.utils.book_append_sheet(wb, ws2, 'ระดับคะแนน (Level)')
+
+  return XLSX.write(wb, { type: 'array', bookType: 'xlsx' })
 }

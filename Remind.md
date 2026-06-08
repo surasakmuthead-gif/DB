@@ -90,8 +90,9 @@ Command    : git add . && git commit -m "..." && git push
   - ใช้ `html2canvas` + `jsPDF` หรือ print CSS
   - รองรับทั้ง Provincial Summary และ Branch Detail
   - 🔔 *เงื่อนไขแจ้งเตือน: เมื่อ Daily Forecast ใช้งานได้แล้ว (ทำเสร็จแล้ว)*
-- [ ] **[LOW]** Export Excel รายงานสรุปคะแนนรายสาขาทุก KPI
-  - ใช้ SheetJS สร้าง workbook multi-sheet (1 sheet ต่อ KPI)
+- [x] **[LOW]** Export Excel รายงานสรุปคะแนนรายสาขาทุก KPI *(เสร็จ 2026-06-09)*
+  - ปุ่ม "Export สรุปคะแนน" ใน Admin > อัปโหลดข้อมูล
+  - 2 sheets: ผลงานจริง (Actual) + ระดับคะแนน (Level 1-5)
 
 ### 🔔 Notification & Alert System
 - [ ] **[MEDIUM]** ระบบแจ้งเตือนสาขาที่ผลงานต่ำกว่าเกณฑ์ระดับ 3
@@ -111,9 +112,8 @@ Command    : git add . && git commit -m "..." && git push
   - Export ข้อมูลทั้งหมด (config + data + targets + logs) เป็น JSON file
   - Import/Restore จาก JSON file
   - 🔔 *เงื่อนไขแจ้งเตือน: ก่อน Production Deploy*
-- [ ] **[LOW]** ล้างข้อมูล Daily Log เก่า (Data Retention Policy)
-  - ตั้งค่าเก็บย้อนหลัง N วัน/เดือน
-  - Auto-purge หรือ Manual clear ใน Admin
+- [x] **[LOW]** ล้างข้อมูล Daily Log เก่า *(เสร็จ 2026-06-09)*
+  - ปุ่ม "ล้าง Daily Log" ใน Admin > อัปโหลดข้อมูล พร้อมแสดงจำนวนวัน + confirm dialog
 
 ### 🎨 UI/UX Enhancement
 - [ ] **[HIGH]** ปรับระบบ Typography ทั้งแอป *(จำนะ — 2026-06-06)*

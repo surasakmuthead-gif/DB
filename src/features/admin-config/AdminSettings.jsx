@@ -11,6 +11,8 @@ import {
   appendDailySnapshot,
   generateExcelTemplate,
   loadKpiTargets, saveKpiTargets,
+  loadDailyLog, clearDailyLog,
+  computeAllBranchScores, rankBranches, exportKpiSummaryExcel,
 } from '../../data/transformer'
 import { BRANCHES } from '../../data/sampleData'
 import AdminPinGate from './AdminPinGate'
@@ -61,6 +63,7 @@ export default function AdminSettings() {
   const [selectedPeriod, setSelectedPeriod] = useState('')
   const [periodLabel, setPeriodLabel] = useState('')
   const [detectedDate, setDetectedDate] = useState(null)  // { date, label, period } จาก filename
+  const [dailyLogCount, setDailyLogCount] = useState(0)
 
   // ─── Flash message ───
   const [saveMsg, setSaveMsg] = useState(null)
@@ -77,6 +80,7 @@ export default function AdminSettings() {
       if (!config) config = await loadDefaultKpiConfig()
       setKpiConfig(config)
       setKpiTargets(loadKpiTargets())
+      setDailyLogCount(loadDailyLog().length)
     })()
   }, [authenticated])
 
@@ -141,6 +145,7 @@ export default function AdminSettings() {
       // 2) บันทึก monthly summary (สำหรับ HistoryChart รายเดือน)
       if (period) appendHistory(period, periodLabel || label, mapped, kpiConfig)
 
+      setDailyLogCount(loadDailyLog().length)
       setUploadMsg({ type: 'success', text: `✓ อัปโหลดสำเร็จ: ${mapped.length} สาขา  |  ${label}` })
     } catch (err) {
       setUploadMsg({ type: 'error', text: `✗ ${err.message}` })
@@ -149,6 +154,28 @@ export default function AdminSettings() {
       e.target.value = ''
     }
   }, [kpiConfig, selectedPeriod, periodLabel])
+
+  // ─── Daily Log ───
+  const handleClearDailyLog = useCallback(() => {
+    if (!confirm(`ล้าง Daily Log ทั้งหมด ${dailyLogCount} วัน?\nข้อมูล Forecast จะหายถาวร`)) return
+    clearDailyLog()
+    setDailyLogCount(0)
+    flash('ล้าง Daily Log เรียบร้อย')
+  }, [dailyLogCount, flash])
+
+  const handleExportSummary = useCallback(() => {
+    if (!kpiConfig.length) { flash('โหลด KPI Config ก่อน'); return }
+    const branchData = loadBranchData()
+    if (!branchData?.length) { flash('ยังไม่มีข้อมูลสาขา — อัปโหลด Excel ก่อน'); return }
+    const ranked = rankBranches(computeAllBranchScores(branchData, kpiConfig, kpiTargets))
+    const buffer = exportKpiSummaryExcel(ranked, kpiConfig)
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    const today = new Date().toISOString().split('T')[0].replace(/-/g, '_')
+    a.href = url; a.download = `BAAC_KPI_Summary_${today}.xlsx`; a.click()
+    URL.revokeObjectURL(url)
+  }, [kpiConfig, kpiTargets, flash])
 
   // ─── KPI CRUD ───
   const openAdd = () => {
@@ -349,6 +376,35 @@ export default function AdminSettings() {
                 {uploadMsg.text}
               </div>
             )}
+          </div>
+
+          {/* ─── Daily Log Status + Actions ─── */}
+          <div className="card p-4 flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2">
+              <Calendar size={14} style={{ color: 'var(--c-text-2)' }} />
+              <span className="text-sm" style={{ color: 'var(--c-text-2)' }}>
+                Daily Log: <strong style={{ color: 'var(--c-text-1)' }}>{dailyLogCount} วัน</strong>
+              </span>
+            </div>
+            <div className="ml-auto flex items-center gap-2">
+              <button
+                className="btn-secondary flex items-center gap-1.5 text-sm"
+                onClick={handleClearDailyLog}
+                disabled={dailyLogCount === 0}
+                title="ลบข้อมูล Daily Log ทั้งหมด (Forecast จะถูกรีเซ็ต)"
+              >
+                <Trash2 size={13} />
+                ล้าง Daily Log
+              </button>
+              <button
+                className="btn-primary flex items-center gap-1.5 text-sm"
+                onClick={handleExportSummary}
+                title="Export สรุปคะแนน KPI รายสาขาทุก KPI เป็น Excel"
+              >
+                <FileSpreadsheet size={13} />
+                Export สรุปคะแนน
+              </button>
+            </div>
           </div>
 
           {/* ─── Format Guide Card ─── */}
