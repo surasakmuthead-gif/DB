@@ -143,4 +143,96 @@ Command    : git add . && git commit -m "..." && git push
 
 ---
 
+## 🚀 [V2.0 PLANNING] — BAAC KPI Dashboard System v2.0
+
+> **สถาปัตยกรรม:** Next.js + Tailwind + Supabase + Recharts  
+> **ขอบเขต:** 9 จังหวัด (ฝ่ายภาค) × 90+ สาขา (ประมาณ)  
+> **ความต่าง v1:** Multi-province, Backend DB, RBAC, Date Alignment, Audit Trail
+
+### 📍 ข้อเด่น v2.0
+- ✅ **Regional Overview** (9 จังหวัด + Date Alignment Logic)
+- ✅ **Supabase PostgreSQL** (Multi-user, Time-series storage)
+- ✅ **RBAC:** Super Admin / Province Admin / Viewer
+- ✅ **Individual Performance** (Staff/Employee KPI tracking)
+- ✅ **Effective Date Logic** (เกณฑ์คะแนนเปลี่ยนตามช่วงเวลา)
+- ✅ **Data Correction + Audit Trail** (บันทึกการแก้ไข)
+- ✅ **System Changelog** (เวอร์ชันระบบ)
+
+---
+
+### 🔴 [CRITICAL] — งานห้ามทำผิด (ต้องแม่นยำ)
+
+| # | งาน | หมายเหตุ |
+|---|-----|---------|
+| 1 | **Regional Overview + Date Alignment** | ต้อง "ทุกจังหวัดส่งครบ" วันเดียวกันเท่านั้น ไม่เช่นนั้นใช้วันเก่า |
+| 2 | **Supabase Backend + Tables** | Core infrastructure — Key-value flexible schema |
+| 3 | **Effective Date Logic** | เกณฑ์เปลี่ยน → ต้องใช้เกณฑ์ ณ วันที่ของข้อมูล ห้าม Recalc ทั้งหมด |
+| 4 | **RBAC System** | Super Admin ได้ทั้งหมด, Province Admin เฉพาะตัวเอง, Viewer ดูได้อย่างเดียว |
+| 5 | **Correction Audit Trail** | บังคับบันทึก "เหตุผล" + ผู้แก้ไข ทุกครั้ง |
+
+---
+
+### 🟡 [IMPORTANT] — งานต้องทำเพื่อให้ครบชุด
+
+| # | งาน | ขนาด | ลำดับทำ |
+|---|-----|------|--------|
+| 6 | Province Dashboard (Dropdown เลือกจังหวัด) | 🟢 Small | หลัง Supabase |
+| 7 | Individual Performance Tab (Staff Leaderboard) | 🟡 Medium | หลัง RBAC |
+| 8 | Data Correction UI (Manual edit + Re-upload) | 🟡 Medium | หลัง Audit Trail |
+| 9 | Audit Trail Log (correction_audit_log table) | 🟡 Medium | หลัง Schema |
+
+---
+
+### 🟢 [NICE-TO-HAVE] — งานช่วยเพิ่มประสบการณ์
+
+| # | งาน | หมายเหตุ |
+|---|-----|---------|
+| 10 | System Changelog Timeline (เวอร์ชัน + Release notes) | Admin UI สำหรับ publish ข้อความประกาศ |
+
+---
+
+### 🗂️ ตัวอักษร Schema ที่สำคัญ
+
+**ตารางหลัก:**
+```
+✅ individual_kpi_data
+   - employee_id, employee_name, job_title, branch_id, province_id
+   - kpi_id, kpi_value, data_date, uploaded_by, uploaded_at
+
+✅ kpi_threshold_history
+   - province_id, branch_id, kpi_id
+   - v1, v2, v3, v4, v5 (เกณฑ์คะแนน)
+   - effective_from, effective_to (วันเริ่ม-สิ้นสุด)
+
+✅ correction_audit_log
+   - corrected_by, corrected_date, corrected_time
+   - target_record_id, field_name, old_value, new_value
+   - reason (บังคับ), correction_method (re-upload/manual-ui)
+
+✅ system_changelog
+   - version (เช่น "2.0.1"), release_date
+   - entries (JSONB: type + text, เช่น "Added", "Fixed")
+```
+
+---
+
+### 🎯 จังหวัด 9 ฝ่ายภาค (Fixed Order)
+```
+1. เพชรบูรณ์
+2. สุโขทัย
+3. นครสวรรค์
+4. พิษณุโลก
+5. พิจิตร
+6. กำแพงเพชร
+7. อุตรดิตถ์
+8. อุทัยธานี
+9. ตาก
+```
+
+---
+
+*Master Spec: SYSTEM_SPECIFICATION_V2.md*
+
+---
+
 *ไฟล์นี้ดูแลโดย Feature Architect & Reminder Agent — อัปเดตอัตโนมัติเมื่อมีคำสั่ง "จำ" / "จดไว้หน่อย"*
